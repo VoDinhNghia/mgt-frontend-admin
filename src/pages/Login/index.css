@@ -16,6 +16,10 @@
     padding-bottom: 30px;
 }
 
+.LoginPage .RightLogin .loginForgot {
+    color: rgb(45, 42, 236);
+}
+
 .LoginPage .RightLogin .email {
     padding-top: 20px;
 }

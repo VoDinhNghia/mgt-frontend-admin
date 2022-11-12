@@ -4,17 +4,18 @@ import PropTypes from 'prop-types'
 import React from 'react';
 import './index.css';
 const Login = ({ setToken }) => {
-  async function loginUser(credentials) {
-    return fetch('http://localhost:3000/auth/login', {
+  const loginUser = async (credentials) => {
+    const data = await fetch('http://localhost:3000/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(credentials)
-    }).then(data => data.json())
-   }
+    });
+    return await data.json();
+  }
   const onFinish = async (values) => {
-    const { data }  = await loginUser({
+    const { data } = await loginUser({
       email: values.email,
       passWord: values.password,
     });
@@ -36,10 +37,10 @@ const Login = ({ setToken }) => {
             name="email"
             rules={[{ required: true, message: 'Please input your email!' }]}
           >
-            <Input 
+            <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
               type='email'
-              placeholder="Enter your email at here." 
+              placeholder="Enter your email at here."
             />
           </Form.Item>
           <Form.Item
@@ -60,9 +61,7 @@ const Login = ({ setToken }) => {
             </Button>
           </Form.Item>
           <Form.Item>
-            <a className="login-form-forgot" href="">
-              Forgot password
-            </a>
+            <a href="/" className="loginForgot">Forgot password ?</a>
           </Form.Item>
         </Form>
       </Col>
@@ -70,7 +69,7 @@ const Login = ({ setToken }) => {
         <h3>STUDENTS</h3>
         <h2>Start managing students with us!</h2>
         <p>This is a web application used to manage students of one university, hope you will have a great experience with us.</p>
-        <img src="images/login-left-page.png" alt="image" />
+        <img src="images/login-left-page.png" alt="login page" />
       </Col>
     </Row>
   </div>
