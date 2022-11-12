@@ -1,10 +1,24 @@
 import { Col, Row, Button, Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import PropTypes from 'prop-types'
 import React from 'react';
 import './index.css';
-const Login = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
+const Login = ({ setToken }) => {
+  async function loginUser(credentials) {
+    return fetch('http://localhost:3000/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+    }).then(data => data.json())
+   }
+  const onFinish = async (values) => {
+    const { data }  = await loginUser({
+      email: values.email,
+      passWord: values.password,
+    });
+    setToken(data?.access_token);
   };
   return <div className='LoginPage'>
     <Row>
@@ -62,3 +76,7 @@ const Login = () => {
   </div>
 };
 export default Login;
+
+Login.propTypes = {
+  setToken: PropTypes.func.isRequired
+}
