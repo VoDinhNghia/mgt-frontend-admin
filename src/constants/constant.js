@@ -3,3 +3,7 @@ export const routes = {
     login: "/login",
     blogMgt: "/blog-mgt",
 }
+
+export const sessionFields = {
+    user: "user"
+}
