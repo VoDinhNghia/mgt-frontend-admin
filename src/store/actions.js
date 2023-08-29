@@ -3,4 +3,6 @@ export const userActions = {
     GET_LIST_USER_SUCCESS: "GET_LIST_USER_SUCCESS",
     ADD_USER: "ADD_USER",
     UPDATE_USER: "UPDATE_USER",
+    GET_ME: "GET_ME",
+    GET_ME_SUCCESS: "GET_ME_SUCCESS",
 }

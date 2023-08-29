@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./index.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import AuthenService from "../../services/AuthenService";
+import { login } from "../../services/authService";
 import { NotificationManager } from "react-notifications";
 import { routes } from "../../constants/constant";
 
@@ -28,7 +28,7 @@ class LoginPage extends Component {
 
   async onHandleLogin() {
     const { email, passWord } = this.state;
-    const res = await new AuthenService().login({ email, passWord });
+    const res = await login({ email, passWord });
     if (res?.statusCode === 200) {
       NotificationManager.success(res?.message, "Login", 2000);
       setTimeout(() => {
