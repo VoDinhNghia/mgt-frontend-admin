@@ -12,7 +12,7 @@ export const getCurrentUser = () => {
 }
 
 export const setAuthHeader = () => {
-  const currentUser = this.getCurrentUser();
+  const currentUser = getCurrentUser();
   const headers = {
     Authorization: `Bearer ${currentUser?.accessToken}`,
     "Content-Type": "application/json",

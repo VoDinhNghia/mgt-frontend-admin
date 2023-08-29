@@ -30,14 +30,14 @@ class MenuPage extends Component {
   fetchInfoMe() {
     const { dispatch } = this.props;
     dispatch({
-        type: userActions.GET_ME,
+      type: userActions.GET_ME,
     });
   }
 
   render() {
     const { profile = {} } = this.props;
     const { expand } = this.state;
-    console.log("profile", profile);
+    const userName = `${profile?.profile?.lastName} ${profile?.profile?.firstName}`;
 
     return (
       <Sidebar
@@ -46,12 +46,21 @@ class MenuPage extends Component {
           flexDirection: "column",
           backgroundColor: "black",
         }}
-        width={expand ? 260 : 80}
+        width={expand ? 280 : 70}
         collapsible
       >
         <Sidenav.Header>
           <div style={headerStyle}>
-            <span>Home</span>
+            <span>
+              <img
+                src={profile?.profile?.avatar || "/images/userIcon.png"}
+                alt=""
+                className="UserAvatar"
+              />
+              <span>
+                {expand ? `${userName} - ${profile?.profile?.code}` : null}
+              </span>
+            </span>
           </div>
         </Sidenav.Header>
         <Sidenav expanded={expand} appearance="subtle">

@@ -14,9 +14,7 @@ function* addUser(payload) {
 
 function* getInfoMe() {
   try {
-    console.log("sjsdhhhhhhhhh")
     const res = yield call(getMeInfo);
-    console.log("jskhhssssscccccc", res);
     yield put({
       type: userActions.GET_ME_SUCCESS,
       payload: res?.data?.data,
