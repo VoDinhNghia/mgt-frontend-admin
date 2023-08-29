@@ -1,0 +1,6 @@
+export const userActions = {
+    GET_LIST_USER: "GET_LIST_USER",
+    GET_LIST_USER_SUCCESS: "GET_LIST_USER_SUCCESS",
+    ADD_USER: "ADD_USER",
+    UPDATE_USER: "UPDATE_USER",
+}
