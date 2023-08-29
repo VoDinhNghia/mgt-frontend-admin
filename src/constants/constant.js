@@ -7,6 +7,7 @@ export const routes = {
   home: "/home",
   login: "/login",
   blogMgt: "/blog-mgt",
+  userMgt: "/user-mgt",
 };
 
 export const sessionFields = {

@@ -1,0 +1,7 @@
+.ItemMenuPage {
+  color: white !important;
+}
+
+.ItemMenuPage:hover {
+  color: black !important;
+}
