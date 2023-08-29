@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { NotificationManager } from "react-notifications";
 import { userActions } from "../actions";
-import { createUser, getMeInfo } from "../../services/userService";
+import { createUser, getMeInfo } from "../../services/usersService";
 
 function* addUser(payload) {
   try {
