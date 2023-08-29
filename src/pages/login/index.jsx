@@ -3,6 +3,7 @@ import "./index.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import AuthenService from "../../services/AuthenService";
 import { NotificationManager } from "react-notifications";
+import { routes } from "../../constants/constant";
 
 class LoginPage extends Component {
   constructor(props) {
@@ -28,11 +29,13 @@ class LoginPage extends Component {
   async onHandleLogin() {
     const { email, passWord } = this.state;
     const res = await new AuthenService().login({ email, passWord });
-    console.log("res", res);
     if (res?.statusCode === 200) {
-      NotificationManager.success(res?.message, "Login", 4000);
+      NotificationManager.success(res?.message, "Login", 2000);
+      setTimeout(() => {
+        window.location.href = routes.home;
+      }, 500);
     } else {
-        NotificationManager.error(res?.message, "Login", 4000);
+      NotificationManager.error(res?.message, "Login", 4000);
     }
   }
 
