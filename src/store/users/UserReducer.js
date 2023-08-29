@@ -3,6 +3,7 @@ import { userActions } from "../actions";
 const initState = {
   listUsers: [],
   totalUser: 0,
+  profile: {}
 };
 
 const UserReducer = (state = initState, action) => {
@@ -17,6 +18,13 @@ const UserReducer = (state = initState, action) => {
         ...state,
         listUsers: action?.payload?.results,
         totalUser: action?.payload?.total,
+        loading: false,
+      };
+    case userActions.GET_ME_SUCCESS:
+      return {
+        ...state,
+        profile: action.payload,
+        loading: false,
       };
 
     default:

@@ -5,6 +5,8 @@ import { headerStyle } from "../../../constants/modifyCss";
 import { routes } from "../../../constants/constant";
 import UserGroupIcon from "@rsuite/icons/legacy/Group";
 import "./index.css";
+import { connect } from "react-redux";
+import { userActions } from "../../../store/actions";
 
 class MenuPage extends Component {
   constructor(props) {
@@ -14,6 +16,10 @@ class MenuPage extends Component {
     };
   }
 
+  componentDidMount() {
+    this.fetchInfoMe();
+  }
+
   onChange() {
     const { expand } = this.state;
     this.setState({
@@ -21,12 +27,25 @@ class MenuPage extends Component {
     });
   }
 
+  fetchInfoMe() {
+    const { dispatch } = this.props;
+    dispatch({
+        type: userActions.GET_ME,
+    });
+  }
+
   render() {
+    const { profile = {} } = this.props;
     const { expand } = this.state;
+    console.log("profile", profile);
 
     return (
       <Sidebar
-        style={{ display: "flex", flexDirection: "column", backgroundColor: "black" }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          backgroundColor: "black",
+        }}
         width={expand ? 260 : 80}
         collapsible
       >
@@ -55,4 +74,10 @@ class MenuPage extends Component {
   }
 }
 
-export default MenuPage;
+const mapStateToProps = (state) => {
+  return {
+    profile: state.UserReducer.profile,
+  };
+};
+
+export default connect(mapStateToProps)(MenuPage);
