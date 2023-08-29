@@ -3,6 +3,7 @@ import LoginPage from './pages/login';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NotFound from './pages/notFound';
 import { routes } from './constants/constant';
+import { NotificationContainer } from 'react-notifications';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path={routes.login} element={<LoginPage />} />
         <Route path="*" element={<NotFound/>}/>
       </Routes>
+      <NotificationContainer />
     </Router>
   );
 }
