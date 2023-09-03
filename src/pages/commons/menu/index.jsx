@@ -9,7 +9,8 @@ import { connect } from "react-redux";
 import { userActions } from "../../../store/actions";
 import RoomIcon from "@rsuite/icons/legacy/Home";
 import FacultyIcon from "@rsuite/icons/legacy/List";
-import { getCurrentUser, getPermission } from "../../../services/authService";
+import { getCurrentUser, getPermission, logOut } from "../../../services/authService";
+import LogOutIcon from "@rsuite/icons/legacy/SignOut";
 
 class MenuPage extends Component {
   constructor(props) {
@@ -35,6 +36,13 @@ class MenuPage extends Component {
     dispatch({
       type: userActions.GET_ME,
     });
+  }
+
+  logOutHandle() {
+    logOut();
+    setTimeout(() => {
+      window.location.href = routes.login;
+    }, 100);
   }
 
   render() {
@@ -108,6 +116,14 @@ class MenuPage extends Component {
                   {moduleNames.FACULTIES_MANAGEMENT}
                 </Nav.Item>
               ) : null}
+              <Nav.Item
+                eventKey="4"
+                icon={<LogOutIcon />}
+                className="ItemMenuPage"
+                onClick={() => this.logOutHandle()}
+              >
+                LogOut
+              </Nav.Item>
             </Nav>
           </Sidenav.Body>
         </Sidenav>
