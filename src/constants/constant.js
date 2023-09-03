@@ -56,4 +56,14 @@ export const listModuleName = [
     value: "Branch Management",
     label: "Branch Management"
   }
-]
+];
+
+export const typeModals = {
+  UPDATE_GENERAL: "UPDATE_GENERAL",
+  UPDATE_PROFILE: "UPDATE_PROFILE",
+  UPDATE_PASSWORD: "UPDATE_PASSWORD",
+  UPDATE: "UPDATE",
+  DELETE: "DELETE",
+  ADD: "ADD",
+  VIEW: "VIEW",
+};

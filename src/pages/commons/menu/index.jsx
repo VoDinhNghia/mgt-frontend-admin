@@ -65,7 +65,7 @@ class MenuPage extends Component {
       >
         <Sidenav.Header>
           <div style={headerStyle}>
-            <span>
+            <a href={routes.home} className="text-white">
               <img
                 src={profile?.profile?.avatar || "/images/userIcon.png"}
                 alt=""
@@ -74,7 +74,7 @@ class MenuPage extends Component {
               <span>
                 {expand ? `${userName} - ${profile?.profile?.code}` : null}
               </span>
-            </span>
+            </a>
           </div>
         </Sidenav.Header>
         <Sidenav expanded={expand} appearance="subtle">
