@@ -16,3 +16,24 @@ export const sessionFields = {
 };
 
 export const URL_STUDENT_SERVER = process.env.REACT_APP_API_STUDENT_URL;
+
+export const moduleNames = {
+  USER_MANAGEMENT: "Users Management",
+  ROOM_MANAGEMENT: "Rooms Management",
+  FACULTIES_MANAGEMENT: "Faculties Management",
+};
+
+export const listModuleName = [
+  {
+    value: "Users Management",
+    label: "Users Management"
+  },
+  {
+    value: "Rooms Management",
+    label: "Rooms Management"
+  },
+  {
+    value: "Faculties Management",
+    label: "Faculties Management"
+  }
+]
