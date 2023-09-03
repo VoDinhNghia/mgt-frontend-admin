@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./index.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { login } from "../../services/authService";
+import { fetchPermission, login } from "../../services/authService";
 import { NotificationManager } from "react-notifications";
 import { routes } from "../../constants/constant";
 
@@ -30,6 +30,9 @@ class LoginPage extends Component {
     const { email, passWord } = this.state;
     const res = await login({ email, passWord });
     if (res?.statusCode === 200) {
+      const user = res?.data;
+      const { profile } = user;
+      await fetchPermission({ user: profile?.id });
       NotificationManager.success(res?.message, "Login", 2000);
       setTimeout(() => {
         window.location.href = routes.home;

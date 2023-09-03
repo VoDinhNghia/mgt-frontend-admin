@@ -7,6 +7,8 @@ import UserGroupIcon from "@rsuite/icons/legacy/Group";
 import "./index.css";
 import { connect } from "react-redux";
 import { userActions } from "../../../store/actions";
+import RoomIcon from "@rsuite/icons/legacy/Home";
+import FacultyIcon from "@rsuite/icons/legacy/List";
 
 class MenuPage extends Component {
   constructor(props) {
@@ -72,7 +74,21 @@ class MenuPage extends Component {
                 icon={<UserGroupIcon />}
                 className="ItemMenuPage"
               >
-                User Managements
+                Users Management
+              </Nav.Item>
+              <Nav.Item
+                eventKey="2"
+                icon={<RoomIcon />}
+                className="ItemMenuPage"
+              >
+                Rooms Management
+              </Nav.Item>
+              <Nav.Item
+                eventKey="3"
+                icon={<FacultyIcon />}
+                className="ItemMenuPage"
+              >
+                Faculties Management
               </Nav.Item>
             </Nav>
           </Sidenav.Body>
