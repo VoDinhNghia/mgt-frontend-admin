@@ -19,7 +19,6 @@ function* getInfoMe() {
       type: userActions.GET_ME_SUCCESS,
       payload: res?.data?.data,
     });
-    NotificationManager.success(res?.data?.message, "Get Me", 4000);
   } catch (error) {
     NotificationManager.error(error?.response?.data?.message, "Get Me", 4000);
   }
