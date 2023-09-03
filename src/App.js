@@ -8,6 +8,7 @@ import HomePage from "./pages/home";
 import ProtectedRouter from "./utils/PrivateRouter";
 import { Provider } from "react-redux";
 import store from "./store";
+import UsersMgtPage from "./pages/usersMgt";
 
 function App() {
   return (
@@ -21,6 +22,14 @@ function App() {
             element={
               <ProtectedRouter>
                 <HomePage />
+              </ProtectedRouter>
+            }
+          />
+          <Route
+            path={routes.userMgt}
+            element={
+              <ProtectedRouter>
+                <UsersMgtPage />
               </ProtectedRouter>
             }
           />
