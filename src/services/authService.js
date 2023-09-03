@@ -73,3 +73,8 @@ export const fetchPermission = async(payload) => {
     setPermissions(permissions);
   } catch (error) {}
 }
+
+export const logOut = () => {
+  sessionStorage.removeItem(sessionFields.user);
+  sessionStorage.removeItem(sessionFields.permissons);
+}
