@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Container } from "rsuite";
 import MenuPage from "../commons/menu";
 import RightContentPage from "./rightContent";
+import FooterPage from "../commons/footer";
 
 class HomePage extends Component {
   render() {
@@ -11,6 +12,7 @@ class HomePage extends Component {
           <MenuPage />
           <RightContentPage />
         </Container>
+        <FooterPage />
       </div>
     );
   }

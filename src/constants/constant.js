@@ -21,6 +21,10 @@ export const moduleNames = {
   USER_MANAGEMENT: "Users Management",
   ROOM_MANAGEMENT: "Rooms Management",
   FACULTIES_MANAGEMENT: "Faculties Management",
+  PERMISSION_MANAGEMENT: "Permission Management",
+  SETTINGS: "Settings",
+  AWARDS_MANAGEMENT: "Awards Management",
+  BRANCH_MANAGEMENT: "Branch Management",
 };
 
 export const listModuleName = [
@@ -35,5 +39,21 @@ export const listModuleName = [
   {
     value: "Faculties Management",
     label: "Faculties Management"
+  },
+  {
+    value: "Permission Management",
+    label: "Permission Management",
+  },
+  {
+    value: "Settings",
+    label: "Settings",
+  },
+  {
+    value: "Awards Management",
+    label: "Awards Management",
+  },
+  {
+    value: "Branch Management",
+    label: "Branch Management"
   }
 ]

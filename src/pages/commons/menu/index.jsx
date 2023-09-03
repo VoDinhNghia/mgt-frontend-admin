@@ -11,6 +11,7 @@ import RoomIcon from "@rsuite/icons/legacy/Home";
 import FacultyIcon from "@rsuite/icons/legacy/List";
 import { getCurrentUser, getPermission, logOut } from "../../../services/authService";
 import LogOutIcon from "@rsuite/icons/legacy/SignOut";
+import PermissonIcon from "@rsuite/icons/legacy/Gear";
 
 class MenuPage extends Component {
   constructor(props) {
@@ -116,8 +117,16 @@ class MenuPage extends Component {
                   {moduleNames.FACULTIES_MANAGEMENT}
                 </Nav.Item>
               ) : null}
+              {currentUser?.role === userRoles.SUPPER_ADMIN ? 
               <Nav.Item
                 eventKey="4"
+                icon={<PermissonIcon />}
+                className="ItemMenuPage"
+              >
+                {moduleNames.PERMISSION_MANAGEMENT}
+              </Nav.Item>: null}
+              <Nav.Item
+                eventKey="5"
                 icon={<LogOutIcon />}
                 className="ItemMenuPage"
                 onClick={() => this.logOutHandle()}
