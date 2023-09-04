@@ -99,16 +99,19 @@ class RightContentPage extends Component {
           type={typeModals.UPDATE_GENERAL}
           isShowModal={isShowModalUpdateInfo}
           onCloseModal={() => this.onCloseModal()}
+          profile={profile}
         />
         <ModalHomePage
           type={typeModals.UPDATE_PASSWORD}
           isShowModal={isShowModalUpdatePassword}
           onCloseModal={() => this.onCloseModal()}
+          profile={profile}
         />
         <ModalHomePage
           type={typeModals.UPDATE_PROFILE}
           isShowModal={isShowModalUpdateProfile}
           onCloseModal={() => this.onCloseModal()}
+          profile={profile}
         />
       </Container>
     );

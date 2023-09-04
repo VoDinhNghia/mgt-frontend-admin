@@ -1,7 +1,12 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { NotificationManager } from "react-notifications";
 import { userActions } from "../actions";
-import { createUser, getMeInfo, updateInfo, updateProfile } from "../../services/usersService";
+import {
+  createUser,
+  getMeInfo,
+  updateInfo,
+  updateProfile,
+} from "../../services/usersService";
 
 function* addUser(payload) {
   try {
@@ -29,7 +34,11 @@ function* updateUserInfo({ id, payload }) {
     const res = yield call(updateInfo, id, payload);
     NotificationManager.success(res?.data?.message, "Update info", 4000);
   } catch (error) {
-    NotificationManager.error(error?.response?.data?.message, "Update info", 4000);
+    NotificationManager.error(
+      error?.response?.data?.message,
+      "Update info",
+      4000
+    );
   }
 }
 
@@ -38,7 +47,11 @@ function* updateUserProfile({ id, payload }) {
     const res = yield call(updateProfile, id, payload);
     NotificationManager.success(res?.data?.message, "Update profile", 4000);
   } catch (error) {
-    NotificationManager.error(error?.response?.data?.message, "Update profile", 4000);
+    NotificationManager.error(
+      error?.response?.data?.message,
+      "Update profile",
+      4000
+    );
   }
 }
 
