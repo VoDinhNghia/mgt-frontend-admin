@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URL_STUDENT_SERVER } from "../constants/constant";
+import { URL_STUDENT_SERVER, userRoles } from "../constants/constant";
 import { setAuthHeader } from "./authService";
 
 export const createUser = async (payload) => {
@@ -37,3 +37,13 @@ export const updateProfile = async (id, payload) => {
   );
   return res;
 };
+
+export const getListUserAdmin = async () => {
+  const res = await axios.get(`${URL_STUDENT_SERVER}/api/users`, {
+    params: {
+      role: userRoles.ADMIN
+    },
+    headers: setAuthHeader(),
+  });
+  return res;
+}

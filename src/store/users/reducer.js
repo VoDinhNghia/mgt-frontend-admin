@@ -3,7 +3,9 @@ import { userActions } from "../actions";
 const initState = {
   listUsers: [],
   totalUser: 0,
-  profile: {}
+  profile: {},
+  adminList: [],
+  totalAdmin: 0,
 };
 
 const UserReducer = (state = initState, action) => {
@@ -26,7 +28,13 @@ const UserReducer = (state = initState, action) => {
         profile: action.payload,
         loading: false,
       };
-
+    case userActions.GET_LIST_USER_ADMIN_SUCCESS:
+      return {
+        ...state,
+        adminList: action?.payload?.results,
+        totalAdmin: action?.payload?.total,
+        loading: false,
+      };
     default:
       return state;
   }
