@@ -14,6 +14,12 @@ class ModalHomePage extends Component {
       passWord: null,
       newPassword: null,
       enterPassword: null,
+      firstName: null,
+      lastName: null,
+      middleName: null,
+      mobile: null,
+      gender: null,
+      email: null,
     };
   }
 
@@ -32,6 +38,42 @@ class ModalHomePage extends Component {
   onChangeEnterPassword(e) {
     this.setState({
       enterPassword: e.target.value,
+    });
+  }
+
+  onChangeEmail(e) {
+    this.setState({
+      email: e.target.value,
+    });
+  }
+
+  onChangeFirstName(e) {
+    this.setState({
+      firstName: e.target.value,
+    });
+  }
+
+  onChangeLastName(e) {
+    this.setState({
+      lastName: e.target.value,
+    });
+  }
+
+  onChangeMiddleName(e) {
+    this.setState({
+      middleName: e.target.value,
+    });
+  }
+
+  onChangeMobile(e) {
+    this.setState({
+      mobile: e.target.value,
+    });
+  }
+
+  onChangeGender(e) {
+    this.setState({
+      gender: e.value,
     });
   }
 
@@ -63,6 +105,48 @@ class ModalHomePage extends Component {
     }
   }
 
+  updateProfile() {
+    const { dispatch, profile = {} } = this.props;
+    const { firstName, lastName, middleName, mobile, gender } = this.state;
+    const generalInfo = profile?.profile;
+    const payload = {
+      firstName: firstName || generalInfo?.firstName,
+      lastName: lastName || generalInfo?.lastName,
+      middleName: middleName || generalInfo?.middleName,
+      mobile: mobile || generalInfo?.mobile,
+      gender: gender || generalInfo?.gender,
+    };
+    dispatch({
+      type: userActions.UPDATE_USER_PROFILE,
+      id: generalInfo?._id,
+      payload,
+    });
+    setTimeout(() => {
+      dispatch({
+        type: userActions.GET_ME,
+      });
+      this.props.onCloseModal();
+    }, 100);
+  }
+
+  updateUser() {
+    const { dispatch, profile = {} } = this.props;
+    const { email } = this.state;
+    dispatch({
+      type: userActions.UPDATE_USER_INFO,
+      id: profile?._id,
+      payload: {
+        email: email || profile?.email,
+      },
+    });
+    setTimeout(() => {
+      dispatch({
+        type: userActions.GET_ME,
+      });
+      this.props.onCloseModal();
+    }, 100);
+  }
+
   render() {
     const { isShowModal, type, profile = {} } = this.props;
 
@@ -86,7 +170,11 @@ class ModalHomePage extends Component {
           {type === typeModals.UPDATE_GENERAL ? (
             <>
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" defaultValue={profile?.email} />
+              <Form.Control
+                type="email"
+                defaultValue={profile?.email}
+                onChange={(e) => this.onChangeEmail(e)}
+              />
             </>
           ) : null}
           {type === typeModals.UPDATE_PASSWORD ? (
@@ -114,21 +202,25 @@ class ModalHomePage extends Component {
               <Form.Control
                 type="text"
                 defaultValue={profile?.profile?.firstName}
+                onChange={(e) => this.onChangeFirstName(e)}
               />
               <Form.Label className="mt-2">Last name</Form.Label>
               <Form.Control
                 type="text"
                 defaultValue={profile?.profile?.lastName}
+                onChange={(e) => this.onChangeLastName(e)}
               />
               <Form.Label className="mt-2">Middle name</Form.Label>
               <Form.Control
                 type="text"
                 defaultValue={profile?.profile?.middleName}
+                onChange={(e) => this.onChangeMiddleName(e)}
               />
               <Form.Label className="mt-2">Mobile</Form.Label>
               <Form.Control
                 type="text"
                 defaultValue={profile?.profile?.mobile}
+                onChange={(e) => this.onChangeMobile(e)}
               />
               <Form.Label className="mt-2">Gender</Form.Label>
               <Select
@@ -136,13 +228,18 @@ class ModalHomePage extends Component {
                 defaultValue={optionGender.find(
                   (op) => op.value === profile?.profile?.gender
                 )}
+                onChange={(e) => this.onChangeGender(e)}
               />
             </>
           ) : null}
         </Modal.Body>
         <Modal.Footer>
           {type === typeModals.UPDATE_GENERAL ? (
-            <Button variant="outline-primary" size="sm">
+            <Button
+              variant="outline-primary"
+              size="sm"
+              onClick={() => this.updateUser()}
+            >
               Update info
             </Button>
           ) : null}
@@ -156,7 +253,11 @@ class ModalHomePage extends Component {
             </Button>
           ) : null}
           {type === typeModals.UPDATE_PROFILE ? (
-            <Button variant="outline-primary" size="sm">
+            <Button
+              variant="outline-primary"
+              size="sm"
+              onClick={() => this.updateProfile()}
+            >
               Update profile
             </Button>
           ) : null}
