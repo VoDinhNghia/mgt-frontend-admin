@@ -15,3 +15,25 @@ export const getMeInfo = async () => {
   });
   return res;
 };
+
+export const updateInfo = async (id, payload) => {
+  const res = await axios.put(
+    `${URL_STUDENT_SERVER}/api/users/${id}`,
+    payload,
+    {
+      headers: setAuthHeader(),
+    }
+  );
+  return res;
+};
+
+export const updateProfile = async (id, payload) => {
+  const res = await axios.put(
+    `${URL_STUDENT_SERVER}/api/users/profile/${id}`,
+    payload,
+    {
+      headers: setAuthHeader(),
+    }
+  );
+  return res;
+};
