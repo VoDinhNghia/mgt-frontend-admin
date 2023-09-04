@@ -9,6 +9,7 @@ import ProtectedRouter from "./utils/PrivateRouter";
 import { Provider } from "react-redux";
 import store from "./store";
 import UsersMgtPage from "./pages/usersMgt";
+import PermissionPageMgt from "./pages/permissionMgt";
 
 function App() {
   return (
@@ -30,6 +31,14 @@ function App() {
             element={
               <ProtectedRouter>
                 <UsersMgtPage />
+              </ProtectedRouter>
+            }
+          />
+          <Route
+            path={routes.permissionMgt}
+            element={
+              <ProtectedRouter>
+                <PermissionPageMgt />
               </ProtectedRouter>
             }
           />

@@ -122,6 +122,7 @@ class MenuPage extends Component {
                 eventKey="4"
                 icon={<PermissonIcon />}
                 className="ItemMenuPage"
+                href={routes.permissionMgt}
               >
                 {moduleNames.PERMISSION_MANAGEMENT}
               </Nav.Item>: null}

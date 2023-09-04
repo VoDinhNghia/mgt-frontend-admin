@@ -6,6 +6,7 @@ import {
   getMeInfo,
   updateInfo,
   updateProfile,
+  getListUserAdmin
 } from "../../services/usersService";
 
 function* addUser(payload) {
@@ -55,11 +56,24 @@ function* updateUserProfile({ id, payload }) {
   }
 }
 
+function* fetchAdminList() {
+  try {
+    const res = yield call(getListUserAdmin);
+    yield put({
+      type: userActions.GET_LIST_USER_ADMIN_SUCCESS,
+      payload: res?.data?.data,
+    });
+  } catch (error) {
+    NotificationManager.error(error?.response?.data?.message, "Get list admin", 4000);
+  }
+}
+
 function* UserSaga() {
   yield takeLatest(userActions.ADD_USER, addUser);
   yield takeLatest(userActions.GET_ME, getInfoMe);
   yield takeLatest(userActions.UPDATE_USER_INFO, updateUserInfo);
   yield takeLatest(userActions.UPDATE_USER_PROFILE, updateUserProfile);
+  yield takeLatest(userActions.GET_LIST_USER_ADMIN, fetchAdminList);
 }
 
 export default UserSaga;
