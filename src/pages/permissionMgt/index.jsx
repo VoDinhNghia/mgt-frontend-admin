@@ -7,6 +7,8 @@ import FooterPage from "../commons/footer";
 import { Container } from "rsuite";
 import { connect } from "react-redux";
 import { userActions } from "../../store/actions";
+import TableCommonPage from "../commons/table";
+import { handleDataPermission, headerListPermission } from "../../utils/permissionHandle";
 
 class PermissionPageMgt extends Component {
   constructor(props) {
@@ -40,7 +42,7 @@ class PermissionPageMgt extends Component {
             <Container>
               <MenuPage />
               <Container className="p-3 fs-6">
-                <p>Permission page</p>
+                <TableCommonPage headerList={headerListPermission} data={handleDataPermission(adminList)}/>
               </Container>
             </Container>
             <FooterPage />
