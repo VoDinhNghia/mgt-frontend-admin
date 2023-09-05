@@ -12,3 +12,13 @@ export const createPermissions = async (payload) => {
   );
   return res;
 };
+
+export const deletePermission = async (id) => {
+  const res = await axios.delete(
+    `${URL_STUDENT_SERVER}/api/permissions/${id}`,
+    {
+      headers: setAuthHeader(),
+    }
+  );
+  return res;
+};
