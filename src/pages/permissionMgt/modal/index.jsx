@@ -11,12 +11,19 @@ class ModalPermissionPage extends Component {
     super(props);
     this.state = {
       moduleName: null,
+      permissionId: null,
     };
   }
 
   onChangeModuleName(e) {
     this.setState({
       moduleName: e.value,
+    });
+  }
+
+  onChangePermionId(e) {
+    this.setState({
+      permissionId: e.value,
     });
   }
 
@@ -36,8 +43,27 @@ class ModalPermissionPage extends Component {
     }, 100);
   }
 
+  deletePermission() {
+    const { dispatch } = this.props;
+    const { permissionId } = this.state;
+    dispatch({
+      type: permissionActions.DELETE_PERMISSION,
+      id: permissionId,
+    });
+    setTimeout(() => {
+      this.props.fetchData();
+      this.props.onCloseModal();
+    }, 100);
+  }
+
   render() {
-    const { isShowModal, type } = this.props;
+    const { isShowModal, type, user } = this.props;
+    const permissions = user?.permissions?.map((per) => {
+      return {
+        value: per?._id,
+        label: per?.moduleName,
+      };
+    });
 
     return (
       <Modal show={isShowModal}>
@@ -58,6 +84,15 @@ class ModalPermissionPage extends Component {
               />
             </>
           ) : null}
+          {type === typeModals.DELETE ? (
+            <>
+              <Form.Label>Select module name</Form.Label>
+              <Select
+                options={permissions}
+                onChange={(e) => this.onChangePermionId(e)}
+              />
+            </>
+          ) : null}
         </Modal.Body>
         <Modal.Footer>
           {type === typeModals.ADD ? (
@@ -67,6 +102,15 @@ class ModalPermissionPage extends Component {
               onClick={() => this.addPermission()}
             >
               Add
+            </Button>
+          ) : null}
+          {type === typeModals.DELETE ? (
+            <Button
+              variant="outline-danger"
+              size="sm"
+              onClick={() => this.deletePermission()}
+            >
+              Delete
             </Button>
           ) : null}
           <Button
