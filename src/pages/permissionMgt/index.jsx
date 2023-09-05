@@ -90,12 +90,14 @@ class PermissionPageMgt extends Component {
           isShowModal={isShowModalAdd}
           user={user}
           onCloseModal={() => this.onCloseModal()}
+          fetchData={() => this.fetchAdminList()}
         />
         <ModalPermissionPage
           type={typeModals.DELETE}
           isShowModal={isShowModalDelete}
           user={user}
           onCloseModal={() => this.onCloseModal()}
+          fetchData={() => this.fetchAdminList()}
         />
       </div>
     );
