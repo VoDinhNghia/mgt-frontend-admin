@@ -1,9 +1,15 @@
 import { Badge, Button } from "react-bootstrap";
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
 
-export const headerListPermission = ["#", "name", "code", "modules name", "actions"];
+export const headerListPermission = [
+  "#",
+  "name",
+  "code",
+  "modules name",
+  "actions",
+];
 
-export const handleDataPermission = (users = []) => {
+export const handleDataPermission = (users = [], addFc, deleteFc) => {
   const data = [];
   for (const [index, value] of users.entries()) {
     const userName = `${value?.profile?.lastName} ${value?.profile?.middleName} ${value?.profile?.firstName}`;
@@ -27,10 +33,18 @@ export const handleDataPermission = (users = []) => {
     );
     row.push(
       <>
-        <Button variant="outline-primary" size="sm">
+        <Button
+          variant="outline-primary"
+          size="sm"
+          onClick={() => addFc(value)}
+        >
           <BsPencilSquare />
         </Button>{" "}
-        <Button variant="outline-danger" size="sm">
+        <Button
+          variant="outline-danger"
+          size="sm"
+          onClick={() => deleteFc(value)}
+        >
           <BsTrash />
         </Button>
       </>
