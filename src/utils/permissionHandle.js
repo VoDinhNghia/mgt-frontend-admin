@@ -24,11 +24,20 @@ export const handleDataPermission = (users = [], addFc, deleteFc) => {
       <>
         {permissions?.map((item, index) => {
           return (
-            <>
-              <Badge key={index} variant="primary">
+            <span key={index}>
+              <Badge
+                bg={
+                  (index + 1) % 2 === 0
+                    ? "primary"
+                    : (index + 1) % 3 === 0
+                    ? "success"
+                    : "danger"
+                }
+                className="text-black"
+              >
                 {item}
               </Badge>{" "}
-            </>
+            </span>
           );
         })}
       </>
