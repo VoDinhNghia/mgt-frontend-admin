@@ -19,7 +19,7 @@ class TableCommonPage extends Component {
         {isShowAddAndSearch ? (
           <Row className="mb-3">
             <Col xl={3}>
-              <Card>
+              <Card className="text-center">
                 <Card.Body>
                   <Button
                     variant="outline-primary"

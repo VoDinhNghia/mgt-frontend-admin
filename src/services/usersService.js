@@ -47,3 +47,18 @@ export const getListUserAdmin = async () => {
   });
   return res;
 }
+
+export const getListUsers = async (payload) => {
+  const res = await axios.get(`${URL_STUDENT_SERVER}/api/users`, {
+    params: payload,
+    headers: setAuthHeader(),
+  });
+  return res;
+};
+
+export const deleteUser = async (id) => {
+  const res = await axios.delete(`${URL_STUDENT_SERVER}/api/users/${id}`, {
+    headers: setAuthHeader(),
+  });
+  return res;
+};
