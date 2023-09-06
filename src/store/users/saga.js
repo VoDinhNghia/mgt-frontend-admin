@@ -6,7 +6,9 @@ import {
   getMeInfo,
   updateInfo,
   updateProfile,
-  getListUserAdmin
+  getListUserAdmin,
+  getListUsers,
+  deleteUser,
 } from "../../services/usersService";
 
 function* addUser(payload) {
@@ -64,7 +66,40 @@ function* fetchAdminList() {
       payload: res?.data?.data,
     });
   } catch (error) {
-    NotificationManager.error(error?.response?.data?.message, "Get list admin", 4000);
+    NotificationManager.error(
+      error?.response?.data?.message,
+      "Get list admin",
+      4000
+    );
+  }
+}
+
+function* fetchListUsers({ payload }) {
+  try {
+    const res = yield call(getListUsers, payload);
+    yield put({
+      type: userActions.GET_LIST_USER_SUCCESS,
+      payload: res?.data?.data,
+    });
+  } catch (error) {
+    NotificationManager.error(
+      error?.response?.data?.message,
+      "Get list users",
+      4000
+    );
+  }
+}
+
+function* removeUser({ id }) {
+  try {
+    const res = yield call(deleteUser, id);
+    NotificationManager.success(res?.data?.message, "Delete user", 4000);
+  } catch (error) {
+    NotificationManager.error(
+      error?.response?.data?.message,
+      "Delete user",
+      4000
+    );
   }
 }
 
@@ -74,6 +109,8 @@ function* UserSaga() {
   yield takeLatest(userActions.UPDATE_USER_INFO, updateUserInfo);
   yield takeLatest(userActions.UPDATE_USER_PROFILE, updateUserProfile);
   yield takeLatest(userActions.GET_LIST_USER_ADMIN, fetchAdminList);
+  yield takeLatest(userActions.GET_LIST_USER, fetchListUsers);
+  yield takeLatest(userActions.DELETE_USER, removeUser);
 }
 
 export default UserSaga;

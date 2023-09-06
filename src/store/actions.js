@@ -8,6 +8,7 @@ export const userActions = {
   GET_ME_SUCCESS: "GET_ME_SUCCESS",
   GET_LIST_USER_ADMIN: "GET_LIST_USER_ADMIN",
   GET_LIST_USER_ADMIN_SUCCESS: "GET_LIST_USER_ADMIN_SUCCESS",
+  DELETE_USER: "DELETE_USER",
 };
 
 export const permissionActions = {
