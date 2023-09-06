@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Card, Col, Form, Row, Table } from "react-bootstrap";
 import { FcPrevious, FcNext } from "react-icons/fc";
+import { BsPlusCircle } from "react-icons/bs";
 
 class TableCommonPage extends Component {
   render() {
@@ -25,7 +26,7 @@ class TableCommonPage extends Component {
                     variant="outline-primary"
                     onClick={() => this.props.onShowModalAdd()}
                   >
-                    {titleAddBtn}
+                    <BsPlusCircle /> {titleAddBtn}
                   </Button>
                 </Card.Body>
               </Card>
