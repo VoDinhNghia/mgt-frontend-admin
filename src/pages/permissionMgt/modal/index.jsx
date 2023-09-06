@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { connect } from "react-redux";
-import { typeModals } from "../../../constants/constant";
+import { optionPermission, typeModals } from "../../../constants/constant";
 import Select from "react-select";
 import { listModuleName } from "../../../constants/constant";
 import { permissionActions } from "../../../store/actions";
@@ -12,6 +12,7 @@ class ModalPermissionPage extends Component {
     this.state = {
       moduleName: null,
       permissionId: null,
+      permission: [],
     };
   }
 
@@ -27,14 +28,21 @@ class ModalPermissionPage extends Component {
     });
   }
 
+  onChangePermission(values) {
+    this.setState({
+      permission: values
+    });
+  }
+
   addPermission() {
     const { user, dispatch } = this.props;
-    const { moduleName } = this.state;
+    const { moduleName, permission } = this.state;
     dispatch({
       type: permissionActions.ADD_PERMISSION,
       payload: {
         moduleName,
         user: String(user?.profile?._id),
+        permission: permission?.map((per) => { return per?.value }),
       },
     });
     setTimeout(() => {
@@ -58,6 +66,7 @@ class ModalPermissionPage extends Component {
 
   render() {
     const { isShowModal, type, user } = this.props;
+    const { moduleName } = this.state;
     const permissions = user?.permissions?.map((per) => {
       return {
         value: per?._id,
@@ -82,6 +91,12 @@ class ModalPermissionPage extends Component {
                 options={listModuleName}
                 onChange={(e) => this.onChangeModuleName(e)}
               />
+              {moduleName ? (
+                <>
+                  <Form.Label className="mt-2">Selete permission</Form.Label>
+                  <Select isMulti options={optionPermission} onChange={(e) => this.onChangePermission(e)}/>
+                </>
+              ) : null}
             </>
           ) : null}
           {type === typeModals.DELETE ? (

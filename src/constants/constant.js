@@ -31,15 +31,15 @@ export const moduleNames = {
 export const listModuleName = [
   {
     value: "Users Management",
-    label: "Users Management"
+    label: "Users Management",
   },
   {
     value: "Rooms Management",
-    label: "Rooms Management"
+    label: "Rooms Management",
   },
   {
     value: "Faculties Management",
-    label: "Faculties Management"
+    label: "Faculties Management",
   },
   {
     value: "Permission Management",
@@ -55,8 +55,8 @@ export const listModuleName = [
   },
   {
     value: "Branch Management",
-    label: "Branch Management"
-  }
+    label: "Branch Management",
+  },
 ];
 
 export const typeModals = {
@@ -68,3 +68,29 @@ export const typeModals = {
   ADD: "ADD",
   VIEW: "VIEW",
 };
+
+export const typePermissions = {
+  ONLY_VIEW: "ONLY_VIEW",
+  EDIT: "EDIT",
+  DELETE: "DELETE",
+  ADD: "ADD",
+};
+
+export const optionPermission = [
+  {
+    value: "ONLY_VIEW",
+    label: "ONLY_VIEW",
+  },
+  {
+    value: "EDIT",
+    label: "EDIT",
+  },
+  {
+    value: "DELETE",
+    label: "DELETE",
+  },
+  {
+    value: "ADD",
+    label: "ADD",
+  },
+];
