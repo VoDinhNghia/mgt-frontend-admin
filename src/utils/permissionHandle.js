@@ -9,6 +9,8 @@ export const headerListPermission = [
   "actions",
 ];
 
+export const colors = ["primary", "success", "warning", "danger", "info"];
+
 export const handleDataPermission = (users = [], addFc, deleteFc) => {
   const data = [];
   for (const [index, value] of users.entries()) {
@@ -26,13 +28,7 @@ export const handleDataPermission = (users = [], addFc, deleteFc) => {
           return (
             <span key={index}>
               <Badge
-                bg={
-                  (index + 1) % 2 === 0
-                    ? "primary"
-                    : (index + 1) % 3 === 0
-                    ? "success"
-                    : "danger"
-                }
+                bg={colors[Math.floor(Math.random() * colors.length)]}
                 className="text-black"
               >
                 {item}
