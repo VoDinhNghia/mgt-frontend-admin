@@ -40,7 +40,16 @@ class UsersMgtPage extends Component {
   }
 
   onSearch(e) {
-    alert(e?.target?.value)
+    const { dispatch } = this.props;
+    const { limit, page } = this.state;
+    dispatch({
+      type: userActions.GET_LIST_USER,
+      payload: {
+        searchKey: e.target.value,
+        limit,
+        page,
+      }
+    });
   }
 
   nextPage(totalPage) {
