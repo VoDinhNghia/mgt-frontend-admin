@@ -79,7 +79,7 @@ class UsersMgtPage extends Component {
       isShowModalDelete: false,
       isShowModalUpdate: false,
       isShowModalImport: false,
-      isShowModalFilter: false
+      isShowModalFilter: false,
     });
   }
 
@@ -144,7 +144,16 @@ class UsersMgtPage extends Component {
 
   render() {
     const { listUsers = [], totalUser = 0 } = this.props;
-    const { limit, page, isShowModalAdd, user, isShowModalDelete, isShowModalUpdate, isShowModalFilter, isShowModalImport } = this.state;
+    const {
+      limit,
+      page,
+      isShowModalAdd,
+      user,
+      isShowModalDelete,
+      isShowModalUpdate,
+      isShowModalFilter,
+      isShowModalImport,
+    } = this.state;
     const roleSa = isRoleSa();
     const permissionModule = isPermissionModule(moduleNames.USER_MANAGEMENT);
     const isPermissionAdd = isPermissionActionUserMgt(typePermissions.ADD);
@@ -160,9 +169,20 @@ class UsersMgtPage extends Component {
                 <Card className="mb-2 border-0">
                   <Card.Body>
                     <span className="MenuUserMgt">
-                      <Button variant="outline-primary" onClick={() => this.onShowModalImport()}><TbDatabaseImport /> Import user</Button>{" "}
-                      <Button variant="outline-primary" onClick={() => this.onShowModalFilter()}><AiOutlineFilter /> Filter</Button>
-                    </span> 
+                      <Button
+                        variant="outline-primary"
+                        disabled={!isPermissionAdd}
+                        onClick={() => this.onShowModalImport()}
+                      >
+                        <TbDatabaseImport /> Import user
+                      </Button>{" "}
+                      <Button
+                        variant="outline-primary"
+                        onClick={() => this.onShowModalFilter()}
+                      >
+                        <AiOutlineFilter /> Filter
+                      </Button>
+                    </span>
                   </Card.Body>
                 </Card>
                 <TableCommonPage
