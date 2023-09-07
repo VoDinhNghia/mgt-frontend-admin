@@ -1,6 +1,6 @@
 import axios from "axios";
 import { URL_STUDENT_SERVER, userRoles } from "../constants/constant";
-import { setAuthHeader } from "./authService";
+import { setAuthHeader, setMultipartHeader } from "./authService";
 
 export const createUser = async (payload) => {
   const res = await axios.post(`${URL_STUDENT_SERVER}/api/users`, payload, {
@@ -41,12 +41,12 @@ export const updateProfile = async (id, payload) => {
 export const getListUserAdmin = async () => {
   const res = await axios.get(`${URL_STUDENT_SERVER}/api/users`, {
     params: {
-      role: userRoles.ADMIN
+      role: userRoles.ADMIN,
     },
     headers: setAuthHeader(),
   });
   return res;
-}
+};
 
 export const getListUsers = async (payload) => {
   const res = await axios.get(`${URL_STUDENT_SERVER}/api/users`, {
@@ -60,5 +60,16 @@ export const deleteUser = async (id) => {
   const res = await axios.delete(`${URL_STUDENT_SERVER}/api/users/${id}`, {
     headers: setAuthHeader(),
   });
+  return res;
+};
+
+export const importUsers = async (payload) => {
+  const res = await axios.post(
+    `${URL_STUDENT_SERVER}/api/users/import-user`,
+    payload,
+    {
+      headers: setMultipartHeader(),
+    }
+  );
   return res;
 };

@@ -210,6 +210,7 @@ class UsersMgtPage extends Component {
               type={typeModals.IMPORT}
               isShowModal={isShowModalImport}
               onCloseModal={() => this.onCloseModal()}
+              fetchUserList={() => this.fetchUserList()}
             />
             <FilterAndImportModal
               type={typeModals.FILTER}

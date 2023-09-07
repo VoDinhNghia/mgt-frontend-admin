@@ -49,6 +49,21 @@ class FilterAndImportModal extends Component {
     }, 40);
   }
 
+  importUser() {
+    const { dispatch } = this.props;
+    const { file } = this.state;
+    const formData = new FormData();
+    formData.append("file", file);
+    dispatch({
+      type: userActions.IMPORT_USER,
+      payload: formData,
+    });
+    setTimeout(() => {
+      this.props.fetchUserList();
+      this.props.onCloseModal();
+    }, 100);
+  }
+
   render() {
     const { isShowModal, type } = this.props;
 
