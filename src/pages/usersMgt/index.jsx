@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { getCurrentUser, getPermission } from "../../services/authService";
-import { moduleNames, userRoles } from "../../constants/constant";
+import { moduleNames, typePermissions } from "../../constants/constant";
 import ForbidenPage from "../commons/forbiden";
 import { Container } from "rsuite";
 import MenuPage from "../commons/menu";
@@ -9,6 +8,7 @@ import { connect } from "react-redux";
 import { userActions } from "../../store/actions";
 import TableCommonPage from "../commons/table";
 import { handleDataTable, headerTable } from "../../utils/userHandle";
+import { isPermissionActionUserMgt, isPermissionModule, isRoleSa } from "../../utils/permissionHandle";
 
 class UsersMgtPage extends Component {
   constructor(props) {
@@ -87,16 +87,14 @@ class UsersMgtPage extends Component {
   render() {
     const { listUsers = [], totalUser = 0 } = this.props;
     const { limit, page } = this.state;
-    const currentUser = getCurrentUser();
-    const permissons = getPermission();
-    const isPermission = permissons.find(
-      (per) => per.moduleName === moduleNames.USER_MANAGEMENT
-    );
+    const roleSa = isRoleSa();
+    const permissionModule = isPermissionModule(moduleNames.USER_MANAGEMENT);
+    const isPermissionAdd = isPermissionActionUserMgt(typePermissions.ADD);
     const totalPage = Math.round(Number(totalUser / limit) + 0.5);
 
     return (
       <div>
-        {isPermission || currentUser?.role === userRoles.SUPPER_ADMIN ? (
+        {roleSa || permissionModule ? (
           <div className="show-fake-browser sidebar-page mt-1">
             <Container>
               <MenuPage />
@@ -105,6 +103,7 @@ class UsersMgtPage extends Component {
                   headerList={headerTable}
                   isShowAddAndSearch={true}
                   titleAddBtn="Add new user"
+                  isDisableAddBtn={!isPermissionAdd}
                   onShowModalAdd={() => this.onShowModalAdd()}
                   onSearch={(e) => this.onSearch(e)}
                   data={handleDataTable(listUsers)}

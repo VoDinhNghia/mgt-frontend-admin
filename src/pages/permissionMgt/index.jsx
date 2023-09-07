@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { getCurrentUser, getPermission } from "../../services/authService";
-import { moduleNames, typeModals, userRoles } from "../../constants/constant";
+import { moduleNames, typeModals } from "../../constants/constant";
 import ForbidenPage from "../commons/forbiden";
 import MenuPage from "../commons/menu";
 import FooterPage from "../commons/footer";
@@ -11,6 +10,8 @@ import TableCommonPage from "../commons/table";
 import {
   handleDataPermission,
   headerListPermission,
+  isPermissionModule,
+  isRoleSa,
 } from "../../utils/permissionHandle";
 import ModalPermissionPage from "./modal";
 
@@ -57,15 +58,12 @@ class PermissionPageMgt extends Component {
   render() {
     const { adminList = [] } = this.props;
     const { isShowModalAdd, isShowModalDelete, user } = this.state;
-    const currentUser = getCurrentUser();
-    const permission = getPermission();
-    const checkPermission = permission.find(
-      (per) => per.moduleName === moduleNames.PERMISSION_MANAGEMENT
-    );
+    const roleSa = isRoleSa();
+    const permissionModule = isPermissionModule(moduleNames.PERMISSION_MANAGEMENT);
 
     return (
       <div>
-        {currentUser?.role === userRoles.SUPPER_ADMIN || checkPermission ? (
+        {roleSa || permissionModule ? (
           <div className="show-fake-browser sidebar-page mt-1">
             <Container>
               <MenuPage />

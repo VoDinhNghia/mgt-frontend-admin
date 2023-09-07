@@ -10,6 +10,7 @@ class TableCommonPage extends Component {
       data = [],
       isShowAddAndSearch = false,
       titleAddBtn,
+      isDisableAddBtn = false,
       isShowPagination = false,
       currentPage = 0,
       totalPage = 0,
@@ -25,6 +26,7 @@ class TableCommonPage extends Component {
                   <Button
                     variant="outline-primary"
                     onClick={() => this.props.onShowModalAdd()}
+                    disabled={isDisableAddBtn}
                   >
                     <BsPlusCircle /> {titleAddBtn}
                   </Button>
