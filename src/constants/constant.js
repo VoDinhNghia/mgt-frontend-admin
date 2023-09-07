@@ -67,6 +67,8 @@ export const typeModals = {
   DELETE: "DELETE",
   ADD: "ADD",
   VIEW: "VIEW",
+  IMPORT: "IMPORT",
+  FILTER: "FILTER",
 };
 
 export const typePermissions = {
