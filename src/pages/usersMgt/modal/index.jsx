@@ -82,7 +82,14 @@ class ModalUserPage extends Component {
       firstName,
       role,
     } = this.state;
-    if (!email || !passWord || !lastName || !firstName || !role || !middleName) {
+    if (
+      !email ||
+      !passWord ||
+      !lastName ||
+      !firstName ||
+      !role ||
+      !middleName
+    ) {
       NotificationManager.error(
         "email, passWord, lastName, firstName and role must is provided",
         "Add user",
@@ -119,6 +126,8 @@ class ModalUserPage extends Component {
           closeButton={true}
         >
           {type === typeModals.ADD ? <h4>Add new user</h4> : null}
+          {type === typeModals.UPDATE ? <h4>Update user</h4> : null}
+          {type === typeModals.DELETE ? <h4>Delete user</h4> : null}
         </Modal.Header>
         <Modal.Body>
           {type === typeModals.ADD ? (
@@ -174,6 +183,16 @@ class ModalUserPage extends Component {
               onClick={() => this.addNewUser()}
             >
               Add
+            </Button>
+          ) : null}
+          {type === typeModals.UPDATE ? (
+            <Button variant="outline-primary" size="sm">
+              Update
+            </Button>
+          ) : null}
+          {type === typeModals.DELETE ? (
+            <Button variant="outline-danger" size="sm">
+              Yes
             </Button>
           ) : null}
           <Button
