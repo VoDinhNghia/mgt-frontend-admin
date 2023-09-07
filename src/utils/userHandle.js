@@ -74,7 +74,7 @@ export const handleDataTable = (listUsers = [], updateFc, deleteFc) => {
     row.push(value?.profile?.code);
     row.push(value?.status?.toLowerCase());
     row.push(value?.role?.toLowerCase());
-    row.push("no");
+    row.push(<Button variant="outline-primary" size="sm">View</Button>);
     row.push(
       <>
         <Button

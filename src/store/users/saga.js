@@ -9,6 +9,7 @@ import {
   getListUserAdmin,
   getListUsers,
   deleteUser,
+  importUsers,
 } from "../../services/usersService";
 
 function* addUser({ payload }) {
@@ -103,6 +104,19 @@ function* removeUser({ id }) {
   }
 }
 
+function* importListUser({ payload }) {
+  try {
+    const res = yield call(importUsers, payload);
+    NotificationManager.success(res?.data?.message, "Import user", 4000);
+  } catch (error) {
+    NotificationManager.error(
+      error?.response?.data?.message,
+      "Import user",
+      4000
+    );
+  }
+}
+
 function* UserSaga() {
   yield takeLatest(userActions.ADD_USER, addUser);
   yield takeLatest(userActions.GET_ME, getInfoMe);
@@ -111,6 +125,7 @@ function* UserSaga() {
   yield takeLatest(userActions.GET_LIST_USER_ADMIN, fetchAdminList);
   yield takeLatest(userActions.GET_LIST_USER, fetchListUsers);
   yield takeLatest(userActions.DELETE_USER, removeUser);
+  yield takeLatest(userActions.IMPORT_USER, importListUser);
 }
 
 export default UserSaga;
