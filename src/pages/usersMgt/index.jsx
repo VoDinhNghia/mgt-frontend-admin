@@ -18,6 +18,11 @@ import {
   isRoleSa,
 } from "../../utils/permissionHandle";
 import ModalUserPage from "./modal";
+import { Button, Card } from "react-bootstrap";
+import "./index.css";
+import { TbDatabaseImport } from "react-icons/tb";
+import { AiOutlineFilter } from "react-icons/ai";
+import FilterAndImportModal from "./filterAndImport";
 
 class UsersMgtPage extends Component {
   constructor(props) {
@@ -29,6 +34,8 @@ class UsersMgtPage extends Component {
       isShowModalUpdate: false,
       isShowModalDelete: false,
       user: {},
+      isShowModalImport: false,
+      isShowModalFilter: false,
     };
   }
 
@@ -54,11 +61,25 @@ class UsersMgtPage extends Component {
     });
   }
 
+  onShowModalImport() {
+    this.setState({
+      isShowModalImport: true,
+    });
+  }
+
+  onShowModalFilter() {
+    this.setState({
+      isShowModalFilter: true,
+    });
+  }
+
   onCloseModal() {
     this.setState({
       isShowModalAdd: false,
       isShowModalDelete: false,
       isShowModalUpdate: false,
+      isShowModalImport: false,
+      isShowModalFilter: false
     });
   }
 
@@ -123,7 +144,7 @@ class UsersMgtPage extends Component {
 
   render() {
     const { listUsers = [], totalUser = 0 } = this.props;
-    const { limit, page, isShowModalAdd, user, isShowModalDelete, isShowModalUpdate } = this.state;
+    const { limit, page, isShowModalAdd, user, isShowModalDelete, isShowModalUpdate, isShowModalFilter, isShowModalImport } = this.state;
     const roleSa = isRoleSa();
     const permissionModule = isPermissionModule(moduleNames.USER_MANAGEMENT);
     const isPermissionAdd = isPermissionActionUserMgt(typePermissions.ADD);
@@ -136,6 +157,14 @@ class UsersMgtPage extends Component {
             <Container>
               <MenuPage />
               <Container className="p-3 fs-6">
+                <Card className="mb-2 border-0">
+                  <Card.Body>
+                    <span className="MenuUserMgt">
+                      <Button variant="outline-primary" onClick={() => this.onShowModalImport()}><TbDatabaseImport /> Import user</Button>{" "}
+                      <Button variant="outline-primary" onClick={() => this.onShowModalFilter()}><AiOutlineFilter /> Filter</Button>
+                    </span> 
+                  </Card.Body>
+                </Card>
                 <TableCommonPage
                   headerList={headerTable}
                   isShowAddAndSearch={true}
@@ -176,6 +205,16 @@ class UsersMgtPage extends Component {
               user={user}
               onCloseModal={() => this.onCloseModal()}
               fetchUserList={() => this.fetchUserList()}
+            />
+            <FilterAndImportModal
+              type={typeModals.IMPORT}
+              isShowModal={isShowModalImport}
+              onCloseModal={() => this.onCloseModal()}
+            />
+            <FilterAndImportModal
+              type={typeModals.FILTER}
+              isShowModal={isShowModalFilter}
+              onCloseModal={() => this.onCloseModal()}
             />
           </div>
         ) : (
