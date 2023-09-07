@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import { moduleNames, typeModals, typePermissions } from "../../constants/constant";
+import {
+  moduleNames,
+  typeModals,
+  typePermissions,
+} from "../../constants/constant";
 import ForbidenPage from "../commons/forbiden";
 import { Container } from "rsuite";
 import MenuPage from "../commons/menu";
@@ -8,7 +12,11 @@ import { connect } from "react-redux";
 import { userActions } from "../../store/actions";
 import TableCommonPage from "../commons/table";
 import { handleDataTable, headerTable } from "../../utils/userHandle";
-import { isPermissionActionUserMgt, isPermissionModule, isRoleSa } from "../../utils/permissionHandle";
+import {
+  isPermissionActionUserMgt,
+  isPermissionModule,
+  isRoleSa,
+} from "../../utils/permissionHandle";
 import ModalUserPage from "./modal";
 
 class UsersMgtPage extends Component {
@@ -20,6 +28,7 @@ class UsersMgtPage extends Component {
       isShowModalAdd: false,
       isShowModalUpdate: false,
       isShowModalDelete: false,
+      user: {},
     };
   }
 
@@ -62,7 +71,7 @@ class UsersMgtPage extends Component {
         searchKey: e.target.value,
         limit,
         page,
-      }
+      },
     });
   }
 
@@ -78,7 +87,7 @@ class UsersMgtPage extends Component {
       payload: {
         limit,
         page: currentPage,
-      }
+      },
     });
   }
 
@@ -94,13 +103,27 @@ class UsersMgtPage extends Component {
       payload: {
         limit,
         page: currentPage,
-      }
+      },
+    });
+  }
+
+  onShowModalUpdate(user) {
+    this.setState({
+      isShowModalUpdate: true,
+      user,
+    });
+  }
+
+  onShowModalDelete(user) {
+    this.setState({
+      isShowModalDelete: true,
+      user,
     });
   }
 
   render() {
     const { listUsers = [], totalUser = 0 } = this.props;
-    const { limit, page, isShowModalAdd } = this.state;
+    const { limit, page, isShowModalAdd, user, isShowModalDelete, isShowModalUpdate } = this.state;
     const roleSa = isRoleSa();
     const permissionModule = isPermissionModule(moduleNames.USER_MANAGEMENT);
     const isPermissionAdd = isPermissionActionUserMgt(typePermissions.ADD);
@@ -120,7 +143,11 @@ class UsersMgtPage extends Component {
                   isDisableAddBtn={!isPermissionAdd}
                   onShowModalAdd={() => this.onShowModalAdd()}
                   onSearch={(e) => this.onSearch(e)}
-                  data={handleDataTable(listUsers)}
+                  data={handleDataTable(
+                    listUsers,
+                    (user) => this.onShowModalUpdate(user),
+                    (user) => this.onShowModalDelete(user)
+                  )}
                   isShowPagination={true}
                   totalPage={totalPage}
                   currentPage={page}
@@ -134,7 +161,21 @@ class UsersMgtPage extends Component {
               type={typeModals.ADD}
               isShowModal={isShowModalAdd}
               onCloseModal={() => this.onCloseModal()}
-              fetchUserList={() => this.fetchUserList()} 
+              fetchUserList={() => this.fetchUserList()}
+            />
+            <ModalUserPage
+              type={typeModals.UPDATE}
+              isShowModal={isShowModalUpdate}
+              user={user}
+              onCloseModal={() => this.onCloseModal()}
+              fetchUserList={() => this.fetchUserList()}
+            />
+            <ModalUserPage
+              type={typeModals.DELETE}
+              isShowModal={isShowModalDelete}
+              user={user}
+              onCloseModal={() => this.onCloseModal()}
+              fetchUserList={() => this.fetchUserList()}
             />
           </div>
         ) : (

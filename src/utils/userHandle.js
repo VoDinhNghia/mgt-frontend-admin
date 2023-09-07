@@ -46,12 +46,13 @@ export const headerTable = [
   "name",
   "email",
   "code",
+  "status",
   "role",
   "award",
   "actions",
 ];
 
-export const handleDataTable = (listUsers = []) => {
+export const handleDataTable = (listUsers = [], updateFc, deleteFc) => {
   const data = [];
   for (const [index, value] of listUsers.entries()) {
     const row = [];
@@ -60,7 +61,8 @@ export const handleDataTable = (listUsers = []) => {
     row.push(name);
     row.push(value?.email);
     row.push(value?.profile?.code);
-    row.push(value?.role);
+    row.push(value?.status?.toLowerCase());
+    row.push(value?.role?.toLowerCase());
     row.push("no");
     row.push(
       <>
@@ -68,6 +70,7 @@ export const handleDataTable = (listUsers = []) => {
           variant="outline-primary"
           size="sm"
           disabled={isPermissionActionUserMgt(typePermissions.EDIT) ? false : true}
+          onClick={() => updateFc(value)}
         >
           <BsPencilSquare />
         </Button>{" "}
@@ -75,6 +78,7 @@ export const handleDataTable = (listUsers = []) => {
           variant="outline-danger"
           size="sm"
           disabled={isPermissionActionUserMgt(typePermissions.DELETE) ? false : true}
+          onClick={() => deleteFc(value)}
         >
           <BsTrash />
         </Button>
