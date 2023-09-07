@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
-import { BsPlusCircle, BsPencilSquare, BsTrash } from "react-icons/bs";
-import { getCurrentUser, getPermission } from "../services/authService";
-import { moduleNames, typePermissions, userRoles } from "../constants/constant";
+import { BsPencilSquare, BsTrash } from "react-icons/bs";
+import { typePermissions } from "../constants/constant";
+import { isPermissionActionUserMgt } from "./permissionHandle";
 
 export const optionGender = [
   {
@@ -52,13 +52,6 @@ export const headerTable = [
 ];
 
 export const handleDataTable = (listUsers = []) => {
-  const currentUser = getCurrentUser();
-  const permissionList = getPermission();
-  const permissionOfModule = permissionList?.find(
-    (per) => per?.moduleName === moduleNames.USER_MANAGEMENT
-  );
-  const { permission = [] } = permissionOfModule;
-  const checkRoleSA = currentUser?.role === userRoles.SUPPER_ADMIN;
   const data = [];
   for (const [index, value] of listUsers.entries()) {
     const row = [];
@@ -74,33 +67,14 @@ export const handleDataTable = (listUsers = []) => {
         <Button
           variant="outline-primary"
           size="sm"
-          disabled={
-            checkRoleSA || permission?.includes(typePermissions.ADD)
-              ? false
-              : true
-          }
-        >
-          <BsPlusCircle />
-        </Button>{" "}
-        <Button
-          variant="outline-primary"
-          size="sm"
-          disabled={
-            checkRoleSA || permission?.includes(typePermissions.EDIT)
-              ? false
-              : true
-          }
+          disabled={isPermissionActionUserMgt(typePermissions.EDIT) ? false : true}
         >
           <BsPencilSquare />
         </Button>{" "}
         <Button
           variant="outline-danger"
           size="sm"
-          disabled={
-            checkRoleSA || permission?.includes(typePermissions.DELETE)
-              ? false
-              : true
-          }
+          disabled={isPermissionActionUserMgt(typePermissions.DELETE) ? false : true}
         >
           <BsTrash />
         </Button>
