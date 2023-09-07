@@ -41,6 +41,17 @@ export const userRoleOption = [
   },
 ];
 
+export const userStatusOption = [
+  {
+    value: "ACTIVE",
+    label: "ACTIVE",
+  },
+  {
+    value: "INACTIVE",
+    label: "INACTIVE",
+  },
+];
+
 export const headerTable = [
   "#",
   "name",
