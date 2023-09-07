@@ -4,8 +4,111 @@ import { connect } from "react-redux";
 import { typeModals } from "../../../constants/constant";
 import Select from "react-select";
 import { optionGender, userRoleOption } from "../../../utils/userHandle";
+import { NotificationManager } from "react-notifications";
+import { userActions } from "../../../store/actions";
 
 class ModalUserPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: null,
+      passWord: null,
+      role: null,
+      firstName: null,
+      lastName: null,
+      middleName: null,
+      mobile: null,
+      gender: null,
+    };
+  }
+
+  onChangeEmail(e) {
+    this.setState({
+      email: e.target.value,
+    });
+  }
+
+  onChangePassword(e) {
+    this.setState({
+      passWord: e.target.value,
+    });
+  }
+
+  onChangeRole(e) {
+    this.setState({
+      role: e.value,
+    });
+  }
+
+  onChangeGender(e) {
+    this.setState({
+      gender: e.value,
+    });
+  }
+
+  onChangeMobile(e) {
+    this.setState({
+      mobile: e.target.value,
+    });
+  }
+
+  onChangeFirtName(e) {
+    this.setState({
+      firstName: e.target.value,
+    });
+  }
+
+  onChangeLastName(e) {
+    this.setState({
+      lastName: e.target.value,
+    });
+  }
+
+  onChangeMiddleName(e) {
+    this.setState({
+      middleName: e.target.value,
+    });
+  }
+
+  addNewUser() {
+    const { dispatch } = this.props;
+    const {
+      email,
+      mobile,
+      gender,
+      passWord,
+      middleName,
+      lastName,
+      firstName,
+      role,
+    } = this.state;
+    if (!email || !passWord || !lastName || !firstName || !role || !middleName) {
+      NotificationManager.error(
+        "email, passWord, lastName, firstName and role must is provided",
+        "Add user",
+        4000
+      );
+    } else {
+      dispatch({
+        type: userActions.ADD_USER,
+        payload: {
+          email,
+          passWord,
+          lastName,
+          firstName,
+          middleName,
+          role,
+          gender,
+          mobile,
+        },
+      });
+      setTimeout(() => {
+        this.props.fetchUserList();
+        this.props.onCloseModal();
+      }, 100);
+    }
+  }
+
   render() {
     const { isShowModal, type } = this.props;
 
@@ -21,27 +124,55 @@ class ModalUserPage extends Component {
           {type === typeModals.ADD ? (
             <>
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" />
+              <Form.Control
+                type="email"
+                onChange={(e) => this.onChangeEmail(e)}
+              />
               <Form.Label className="mt-2">Password</Form.Label>
-              <Form.Control type="password" />
+              <Form.Control
+                type="password"
+                onChange={(e) => this.onChangePassword(e)}
+              />
               <Form.Label className="mt-2">Role</Form.Label>
-              <Select options={userRoleOption} />
+              <Select
+                options={userRoleOption}
+                onChange={(e) => this.onChangeRole(e)}
+              />
               <Form.Label className="mt-2">FirstName</Form.Label>
-              <Form.Control type="text" />
+              <Form.Control
+                type="text"
+                onChange={(e) => this.onChangeFirtName(e)}
+              />
               <Form.Label className="mt-2">LastName</Form.Label>
-              <Form.Control type="text" />
+              <Form.Control
+                type="text"
+                onChange={(e) => this.onChangeLastName(e)}
+              />
               <Form.Label className="mt-2">MiddleName</Form.Label>
-              <Form.Control type="text" />
+              <Form.Control
+                type="text"
+                onChange={(e) => this.onChangeMiddleName(e)}
+              />
               <Form.Label className="mt-2">Mobile</Form.Label>
-              <Form.Control type="text" />
+              <Form.Control
+                type="text"
+                onChange={(e) => this.onChangeMobile(e)}
+              />
               <Form.Label className="mt-2">Gender</Form.Label>
-              <Select options={optionGender} />
+              <Select
+                options={optionGender}
+                onChange={(e) => this.onChangeGender(e)}
+              />
             </>
           ) : null}
         </Modal.Body>
         <Modal.Footer>
           {type === typeModals.ADD ? (
-            <Button variant="outline-primary" size="sm">
+            <Button
+              variant="outline-primary"
+              size="sm"
+              onClick={() => this.addNewUser()}
+            >
               Add
             </Button>
           ) : null}

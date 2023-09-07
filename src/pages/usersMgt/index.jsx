@@ -104,7 +104,7 @@ class UsersMgtPage extends Component {
     const roleSa = isRoleSa();
     const permissionModule = isPermissionModule(moduleNames.USER_MANAGEMENT);
     const isPermissionAdd = isPermissionActionUserMgt(typePermissions.ADD);
-    const totalPage = Math.round(Number(totalUser / limit) + 0.5);
+    const totalPage = Math.round(Number(totalUser / limit) + 0.45);
 
     return (
       <div>
@@ -133,7 +133,8 @@ class UsersMgtPage extends Component {
             <ModalUserPage
               type={typeModals.ADD}
               isShowModal={isShowModalAdd}
-              onCloseModal={() => this.onCloseModal()} 
+              onCloseModal={() => this.onCloseModal()}
+              fetchUserList={() => this.fetchUserList()} 
             />
           </div>
         ) : (

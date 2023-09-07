@@ -11,7 +11,7 @@ import {
   deleteUser,
 } from "../../services/usersService";
 
-function* addUser(payload) {
+function* addUser({ payload }) {
   try {
     const res = yield call(createUser, payload);
     NotificationManager.success(res?.data?.message, "Add user", 4000);
