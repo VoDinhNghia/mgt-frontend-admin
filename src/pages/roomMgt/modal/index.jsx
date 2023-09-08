@@ -12,6 +12,7 @@ class ModalRoomMgtPage extends Component {
         <Modal.Header onHide={() => this.props.onCloseModal()} closeButton={true}>
           {type === typeModals.ADD ? <h4>Add new room</h4> : null}
         </Modal.Header>
+        <Modal.Body></Modal.Body>
         <Modal.Footer>
           <Button
             variant="outline-danger"
