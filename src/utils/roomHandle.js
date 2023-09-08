@@ -1,5 +1,7 @@
 import { Button } from "react-bootstrap";
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
+import { isPermissionActionRoomMgt, isRoleSa } from "./permissionHandle";
+import { typePermissions } from "../constants/constant";
 
 export const roomOptions = [
   {
@@ -31,10 +33,17 @@ export const headerTable = [
   "capacity",
   "description",
   "divice",
-  "actions"
+  "actions",
 ];
 
 export const handleDataTable = (listRooms = []) => {
+  const roleSa = isRoleSa();
+  const permissionActionUpdate = isPermissionActionRoomMgt(
+    typePermissions.EDIT
+  );
+  const permissionActionDelete = isPermissionActionRoomMgt(
+    typePermissions.DELETE
+  );
   const data = [];
   for (const [index, value] of listRooms.entries()) {
     const row = [];
@@ -43,12 +52,30 @@ export const handleDataTable = (listRooms = []) => {
     row.push(value?.type?.toLowerCase());
     row.push(value?.capacity);
     row.push(value?.description);
-    row.push(<Button variant="outline-primary" size="sm">View</Button>);
-    row.push(<>
-      <Button variant="outline-primary" size="sm"><BsPencilSquare /></Button>{" "}
-      <Button variant="outline-danger" size="sm"><BsTrash /></Button>
-    </>);
+    row.push(
+      <Button variant="outline-primary" size="sm">
+        View
+      </Button>
+    );
+    row.push(
+      <>
+        <Button
+          variant="outline-primary"
+          size="sm"
+          disabled={roleSa || permissionActionUpdate ? false : true}
+        >
+          <BsPencilSquare />
+        </Button>{" "}
+        <Button
+          variant="outline-danger"
+          size="sm"
+          disabled={roleSa || permissionActionDelete ? false : true}
+        >
+          <BsTrash />
+        </Button>
+      </>
+    );
     data.push(row);
   }
   return data;
-}
+};

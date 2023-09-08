@@ -11,7 +11,7 @@ export const isRoleSa = () => {
 
 export const isPermissionActionUserMgt = (action) => {
   const roleSa = isRoleSa();
-  const permissionOfModule = isPermissionModule(moduleNames.USER_MANAGEMENT)
+  const permissionOfModule = isPermissionModule(moduleNames.USER_MANAGEMENT);
   const { permission = [] } = permissionOfModule;
   const isPermission = permission?.includes(action);
   return roleSa || isPermission;
@@ -21,6 +21,14 @@ export const isPermissionModule = (moduleName) => {
   const permissionList = getPermission();
   const existedModule = permissionList?.find((per) => per?.moduleName === moduleName);
   return existedModule;
+}
+
+export const isPermissionActionRoomMgt = (action) => {
+  const roleSa = isRoleSa();
+  const permissionOfModule = isPermissionModule(moduleNames.ROOM_MANAGEMENT);
+  const { permission = [] } = permissionOfModule;
+  const isPermission = permission?.includes(action);
+  return roleSa || isPermission;
 }
 
 export const headerListPermission = [
