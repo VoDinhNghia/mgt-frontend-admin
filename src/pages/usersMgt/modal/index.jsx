@@ -3,7 +3,11 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 import { typeModals } from "../../../constants/constant";
 import Select from "react-select";
-import { optionGender, userRoleOption } from "../../../utils/userHandle";
+import {
+  optionGender,
+  userRoleOption,
+  userStatusOption,
+} from "../../../utils/userHandle";
 import { NotificationManager } from "react-notifications";
 import { userActions } from "../../../store/actions";
 
@@ -19,6 +23,7 @@ class ModalUserPage extends Component {
       middleName: null,
       mobile: null,
       gender: null,
+      status: null,
     };
   }
 
@@ -70,6 +75,12 @@ class ModalUserPage extends Component {
     });
   }
 
+  onChangeStatus(e) {
+    this.setState({
+      status: e.value,
+    });
+  }
+
   addNewUser() {
     const { dispatch } = this.props;
     const {
@@ -117,7 +128,7 @@ class ModalUserPage extends Component {
   }
 
   render() {
-    const { isShowModal, type } = this.props;
+    const { isShowModal, type, user } = this.props;
 
     return (
       <Modal show={isShowModal}>
@@ -172,6 +183,40 @@ class ModalUserPage extends Component {
                 options={optionGender}
                 onChange={(e) => this.onChangeGender(e)}
               />
+            </>
+          ) : null}
+          {type === typeModals.UPDATE ? (
+            <>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                onChange={(e) => this.onChangeEmail(e)}
+                defaultValue={user?.email}
+              />
+              <Form.Label className="mt-2">Role</Form.Label>
+              <Select
+                options={userRoleOption}
+                onChange={(e) => this.onChangeRole(e)}
+                defaultValue={userRoleOption.filter(
+                  (role) => role.value === user?.role
+                )}
+              />
+              <Form.Label className="mt-2">Status</Form.Label>
+              <Select
+                options={userStatusOption}
+                onChange={(e) => this.onChangeStatus(e)}
+                defaultValue={userStatusOption.filter(
+                  (status) => status.value === user?.status
+                )}
+              />
+            </>
+          ) : null}
+          {type === typeModals.DELETE ? (
+            <>
+              <span>
+                Are you want to delete user{" "}
+                <b>{`${user?.profile?.lastName} ${user?.profile?.middleName} ${user?.profile?.firstName}`}</b>
+              </span>
             </>
           ) : null}
         </Modal.Body>
