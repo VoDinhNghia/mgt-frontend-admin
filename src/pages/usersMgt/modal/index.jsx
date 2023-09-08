@@ -120,11 +120,39 @@ class ModalUserPage extends Component {
           mobile,
         },
       });
-      setTimeout(() => {
-        this.props.fetchUserList();
-        this.props.onCloseModal();
-      }, 100);
+      this.setTimeoutFetchUserAndCloseModal();
     }
+  }
+
+  updateUser() {
+    const { dispatch, user } = this.props;
+    const { role, status, email } = this.state;
+    dispatch({
+      type: userActions.UPDATE_USER_INFO,
+      id: user?._id,
+      payload: {
+        role: role || user?.role,
+        status: status || user?.status,
+        email: email || user?.email,
+      }
+    });
+    this.setTimeoutFetchUserAndCloseModal();
+  }
+
+  deleteUser() {
+    const { dispatch, user } = this.props;
+    dispatch({
+      type: userActions.DELETE_USER,
+      id: user?._id,
+    });
+    this.setTimeoutFetchUserAndCloseModal();
+  }
+
+  setTimeoutFetchUserAndCloseModal() {
+    setTimeout(() => {
+      this.props.fetchUserList();
+      this.props.onCloseModal();
+    }, 100);
   }
 
   render() {
@@ -231,12 +259,12 @@ class ModalUserPage extends Component {
             </Button>
           ) : null}
           {type === typeModals.UPDATE ? (
-            <Button variant="outline-primary" size="sm">
+            <Button variant="outline-primary" size="sm" onClick={() => this.updateUser()}>
               Update
             </Button>
           ) : null}
           {type === typeModals.DELETE ? (
-            <Button variant="outline-danger" size="sm">
+            <Button variant="outline-danger" size="sm" onClick={() => this.deleteUser()}>
               Yes
             </Button>
           ) : null}
