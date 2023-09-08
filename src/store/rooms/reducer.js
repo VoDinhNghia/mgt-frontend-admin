@@ -17,6 +17,7 @@ const RoomReducer = (state = initState, action) => {
         ...state,
         listRooms: action?.payload?.results,
         totalRoom: action?.payload?.total,
+        loading: false,
       };
 
     default:
