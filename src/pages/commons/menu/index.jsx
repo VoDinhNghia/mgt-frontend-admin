@@ -101,6 +101,7 @@ class MenuPage extends Component {
                   eventKey="2"
                   icon={<RoomIcon />}
                   className="ItemMenuPage"
+                  href={routes.roomMgt}
                 >
                   {moduleNames.ROOM_MANAGEMENT}
                 </Nav.Item>

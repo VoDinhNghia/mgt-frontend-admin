@@ -4,7 +4,7 @@ import PermissionSaga from "./permissions/saga";
 import RoomSaga from "./rooms/saga";
 
 function* rootSaga() {
-  yield all([fork(UserSaga), fork(PermissionSaga)], fork(RoomSaga));
+  yield all([fork(UserSaga), fork(PermissionSaga), fork(RoomSaga)]);
 }
 
 export default rootSaga;

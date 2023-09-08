@@ -9,6 +9,7 @@ export const routes = {
   blogMgt: "/blog-mgt",
   userMgt: "/user-mgt",
   permissionMgt: "/permission-mgt",
+  roomMgt: "/room-mgt",
 };
 
 export const sessionFields = {
