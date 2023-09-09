@@ -124,6 +124,7 @@ class RoomMgtPage extends Component {
               isShowModal={isShowModalAdd}
               type={typeModals.ADD}
               onCloseModal={() => this.onCloseModal()}
+              fetchListRooms={() => this.fetchListRooms()}
             />
           </div>
         ) : (
