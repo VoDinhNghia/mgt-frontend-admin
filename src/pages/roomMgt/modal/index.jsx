@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 import { typeModals } from "../../../constants/constant";
+import Select from "react-select";
+import { roomOptions } from "../../../utils/roomHandle";
 
 class ModalRoomMgtPage extends Component {
   render() {
@@ -9,11 +11,38 @@ class ModalRoomMgtPage extends Component {
 
     return (
       <Modal show={isShowModal}>
-        <Modal.Header onHide={() => this.props.onCloseModal()} closeButton={true}>
+        <Modal.Header
+          onHide={() => this.props.onCloseModal()}
+          closeButton={true}
+        >
           {type === typeModals.ADD ? <h4>Add new room</h4> : null}
         </Modal.Header>
-        <Modal.Body></Modal.Body>
+        <Modal.Body>
+          {type === typeModals.ADD ? (
+            <>
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="text" />
+              <Form.Label className="mt-2">Type</Form.Label>
+              <Select options={roomOptions} />
+              <Form.Label className="mt-2">Capacity</Form.Label>
+              <Form.Control type="number" />
+              <Form.Label className="mt-2">Description</Form.Label>
+              <Form.Control as="textarea" rows={4} />
+              <Form.Label className="mt-2">Air conditioner</Form.Label>
+              <Form.Control type="text" />
+              <Form.Label className="mt-2">Projector</Form.Label>
+              <Form.Control type="text" />
+              <Form.Label className="mt-2">Status</Form.Label>
+              <Form.Control type="text" />
+            </>
+          ) : null}
+        </Modal.Body>
         <Modal.Footer>
+          {type === typeModals.ADD ? (
+            <Button variant="outline-primary" size="sm">
+              Add
+            </Button>
+          ) : null}
           <Button
             variant="outline-danger"
             size="sm"
