@@ -36,7 +36,12 @@ export const headerTable = [
   "actions",
 ];
 
-export const handleDataTable = (listRooms = []) => {
+export const handleDataTable = (
+  listRooms = [],
+  updateFc,
+  deleteFc,
+  diviceFc
+) => {
   const roleSa = isRoleSa();
   const permissionActionUpdate = isPermissionActionRoomMgt(
     typePermissions.EDIT
@@ -53,7 +58,11 @@ export const handleDataTable = (listRooms = []) => {
     row.push(value?.capacity);
     row.push(value?.description);
     row.push(
-      <Button variant="outline-primary" size="sm">
+      <Button
+        variant="outline-primary"
+        size="sm"
+        onClick={() => diviceFc(value)}
+      >
         View
       </Button>
     );
@@ -63,6 +72,7 @@ export const handleDataTable = (listRooms = []) => {
           variant="outline-primary"
           size="sm"
           disabled={roleSa || permissionActionUpdate ? false : true}
+          onClick={() => updateFc(value)}
         >
           <BsPencilSquare />
         </Button>{" "}
@@ -70,6 +80,7 @@ export const handleDataTable = (listRooms = []) => {
           variant="outline-danger"
           size="sm"
           disabled={roleSa || permissionActionDelete ? false : true}
+          onClick={() => deleteFc(value)}
         >
           <BsTrash />
         </Button>

@@ -20,6 +20,8 @@ class RoomMgtPage extends Component {
       isShowModalAdd: false,
       isShowModalUpdate: false,
       isShowModalDelete: false,
+      isShowModalDivive: false,
+      room: {},
     };
   }
 
@@ -36,6 +38,9 @@ class RoomMgtPage extends Component {
   onCloseModal() {
     this.setState({
       isShowModalAdd: false,
+      isShowModalDelete: false,
+      isShowModalUpdate: false,
+      isShowModalDivive: false,
     });
   }
 
@@ -73,7 +78,7 @@ class RoomMgtPage extends Component {
       payload: {
         limit,
         page: currentPage,
-      }
+      },
     });
   }
 
@@ -90,9 +95,37 @@ class RoomMgtPage extends Component {
     });
   }
 
+  onShowModalUpdate(room) {
+    this.setState({
+      isShowModalUpdate: true,
+      room,
+    });
+  }
+
+  onShowModalDivice(room) {
+    this.setState({
+      isShowModalDivive: true,
+      room,
+    });
+  }
+
+  onShowModalDelete(room) {
+    this.setState({
+      isShowModalDelete: true,
+      room,
+    });
+  }
+
   render() {
     const { listRooms = [], totalRoom = 0 } = this.props;
-    const { limit, page, isShowModalAdd } = this.state;
+    const {
+      limit,
+      page,
+      isShowModalAdd,
+      isShowModalUpdate,
+      isShowModalDelete,
+      isShowModalDivive,
+    } = this.state;
     const roleSa = isRoleSa();
     const permissionModule = isPermissionModule(moduleNames.ROOM_MANAGEMENT);
     const totalPage = Math.round(Number(totalRoom / limit) + 0.45);
@@ -104,13 +137,18 @@ class RoomMgtPage extends Component {
             <Container>
               <MenuPage />
               <Container className="p-3">
-                <TableCommonPage 
+                <TableCommonPage
                   headerList={headerTable}
                   isShowAddAndSearch={true}
                   titleAddBtn="Add new room"
                   onSearch={(e) => this.onSearch(e)}
                   onShowModalAdd={() => this.onShowModalAdd()}
-                  data={handleDataTable(listRooms)}
+                  data={handleDataTable(
+                    listRooms,
+                    (room) => this.onShowModalUpdate(room),
+                    (room) => this.onShowModalDelete(room),
+                    (room) => this.onShowModalDivice(room)
+                  )}
                   isShowPagination={true}
                   currentPage={page}
                   totalPage={totalPage}
@@ -123,6 +161,24 @@ class RoomMgtPage extends Component {
             <ModalRoomMgtPage
               isShowModal={isShowModalAdd}
               type={typeModals.ADD}
+              onCloseModal={() => this.onCloseModal()}
+              fetchListRooms={() => this.fetchListRooms()}
+            />
+            <ModalRoomMgtPage
+              isShowModal={isShowModalUpdate}
+              type={typeModals.UPDATE}
+              onCloseModal={() => this.onCloseModal()}
+              fetchListRooms={() => this.fetchListRooms()}
+            />
+            <ModalRoomMgtPage
+              isShowModal={isShowModalDelete}
+              type={typeModals.DELETE}
+              onCloseModal={() => this.onCloseModal()}
+              fetchListRooms={() => this.fetchListRooms()}
+            />
+            <ModalRoomMgtPage
+              isShowModal={isShowModalDivive}
+              type={typeModals.VIEW}
               onCloseModal={() => this.onCloseModal()}
               fetchListRooms={() => this.fetchListRooms()}
             />
