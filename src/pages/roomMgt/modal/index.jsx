@@ -154,6 +154,9 @@ class ModalRoomMgtPage extends Component {
           closeButton={true}
         >
           {type === typeModals.ADD ? <h4>Add new room</h4> : null}
+          {type === typeModals.UPDATE ? <h4>Update room</h4> : null}
+          {type === typeModals.DELETE ? <h4>Delete room</h4> : null}
+          {type === typeModals.VIEW ? <h4>View divice</h4> : null}
         </Modal.Header>
         <Modal.Body>
           {type === typeModals.ADD || type === typeModals.UPDATE ? (
@@ -210,6 +213,11 @@ class ModalRoomMgtPage extends Component {
               Are you want to delete this <b>{room?.name}</b>?
             </>
           ) : null}
+          {type === typeModals.VIEW ? <>
+            <p>Air conditioner: {room?.divice?.airConditioner}</p>
+            <p>Projector: {room?.divice?.projector}</p>
+            <p>Status: {room?.divice?.status}</p>
+          </> : null}
         </Modal.Body>
         <Modal.Footer>
           {type === typeModals.ADD ? (
