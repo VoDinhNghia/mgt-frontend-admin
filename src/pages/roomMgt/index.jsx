@@ -125,6 +125,7 @@ class RoomMgtPage extends Component {
       isShowModalUpdate,
       isShowModalDelete,
       isShowModalDivive,
+      room,
     } = this.state;
     const roleSa = isRoleSa();
     const permissionModule = isPermissionModule(moduleNames.ROOM_MANAGEMENT);
@@ -167,18 +168,21 @@ class RoomMgtPage extends Component {
             <ModalRoomMgtPage
               isShowModal={isShowModalUpdate}
               type={typeModals.UPDATE}
+              room={room}
               onCloseModal={() => this.onCloseModal()}
               fetchListRooms={() => this.fetchListRooms()}
             />
             <ModalRoomMgtPage
               isShowModal={isShowModalDelete}
               type={typeModals.DELETE}
+              room={room}
               onCloseModal={() => this.onCloseModal()}
               fetchListRooms={() => this.fetchListRooms()}
             />
             <ModalRoomMgtPage
               isShowModal={isShowModalDivive}
               type={typeModals.VIEW}
+              room={room}
               onCloseModal={() => this.onCloseModal()}
               fetchListRooms={() => this.fetchListRooms()}
             />
