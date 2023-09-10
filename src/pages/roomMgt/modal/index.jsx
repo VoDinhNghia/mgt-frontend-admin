@@ -99,6 +99,15 @@ class ModalRoomMgtPage extends Component {
     }
   }
 
+  deleteRoom() {
+    const { dispatch, room } = this.props;
+    dispatch({
+      type: roomActions.DELETE_ROOM,
+      id: room?._id,
+    });
+    this.setTimeOutFetchAndCloseModal();
+  }
+
   setTimeOutFetchAndCloseModal() {
     setTimeout(() => {
       this.props.fetchListRooms();
@@ -107,7 +116,7 @@ class ModalRoomMgtPage extends Component {
   }
 
   render() {
-    const { isShowModal, type } = this.props;
+    const { isShowModal, type, room } = this.props;
 
     return (
       <Modal show={isShowModal}>
@@ -158,6 +167,9 @@ class ModalRoomMgtPage extends Component {
               />
             </>
           ) : null}
+          {type === typeModals.DELETE ? <>
+            Are you want to delete this <b>{room?.name}</b>?
+          </> : null}
         </Modal.Body>
         <Modal.Footer>
           {type === typeModals.ADD ? (
@@ -169,6 +181,7 @@ class ModalRoomMgtPage extends Component {
               Add
             </Button>
           ) : null}
+          {type === typeModals.DELETE ? <Button variant="outline-danger" size="sm" onClick={() => this.deleteRoom()}>Yes</Button> : null}
           <Button
             variant="outline-danger"
             size="sm"
