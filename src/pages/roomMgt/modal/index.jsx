@@ -108,6 +108,35 @@ class ModalRoomMgtPage extends Component {
     this.setTimeOutFetchAndCloseModal();
   }
 
+  updateRoom() {
+    const { dispatch, room } = this.props;
+    const {
+      name,
+      description,
+      airConditioner,
+      status,
+      projector,
+      type,
+      capacity,
+    } = this.state;
+    dispatch({
+      type: roomActions.UPDATE_ROOM,
+      id: room?._id,
+      payload: {
+        name: name || room?.name,
+        description: description || room?.description,
+        divice: {
+          airConditioner: airConditioner || room?.divice?.airConditioner,
+          status: status || room?.divice?.status,
+          projector: projector || room?.divice?.projector,
+        },
+        type: type || room?.type,
+        capacity: capacity || room?.capacity,
+      },
+    });
+    this.setTimeOutFetchAndCloseModal();
+  }
+
   setTimeOutFetchAndCloseModal() {
     setTimeout(() => {
       this.props.fetchListRooms();
@@ -127,49 +156,60 @@ class ModalRoomMgtPage extends Component {
           {type === typeModals.ADD ? <h4>Add new room</h4> : null}
         </Modal.Header>
         <Modal.Body>
-          {type === typeModals.ADD ? (
+          {type === typeModals.ADD || type === typeModals.UPDATE ? (
             <>
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
+                defaultValue={room?.name}
                 onChange={(e) => this.onChangeName(e)}
               />
               <Form.Label className="mt-2">Type</Form.Label>
               <Select
                 options={roomOptions}
+                defaultValue={roomOptions.filter(
+                  (ro) => ro.value === room?.type
+                )}
                 onChange={(e) => this.onChangeType(e)}
               />
               <Form.Label className="mt-2">Capacity</Form.Label>
               <Form.Control
                 type="number"
+                defaultValue={Number(room?.capacity)}
                 onChange={(e) => this.onChangeCapacity(e)}
               />
               <Form.Label className="mt-2">Description</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={4}
+                defaultValue={room?.description}
                 onChange={(e) => this.onChangeDescription(e)}
               />
               <Form.Label className="mt-2">Air conditioner</Form.Label>
               <Form.Control
                 type="text"
+                defaultValue={room?.divice?.airConditioner}
                 onChange={(e) => this.onChangeAirConditioner(e)}
               />
               <Form.Label className="mt-2">Projector</Form.Label>
               <Form.Control
                 type="text"
+                defaultValue={room?.divice?.projector}
                 onChange={(e) => this.onChangeProjector(e)}
               />
               <Form.Label className="mt-2">Status</Form.Label>
               <Form.Control
                 type="text"
+                defaultValue={room?.divice?.status}
                 onChange={(e) => this.onChangeStatus(e)}
               />
             </>
           ) : null}
-          {type === typeModals.DELETE ? <>
-            Are you want to delete this <b>{room?.name}</b>?
-          </> : null}
+          {type === typeModals.DELETE ? (
+            <>
+              Are you want to delete this <b>{room?.name}</b>?
+            </>
+          ) : null}
         </Modal.Body>
         <Modal.Footer>
           {type === typeModals.ADD ? (
@@ -181,7 +221,24 @@ class ModalRoomMgtPage extends Component {
               Add
             </Button>
           ) : null}
-          {type === typeModals.DELETE ? <Button variant="outline-danger" size="sm" onClick={() => this.deleteRoom()}>Yes</Button> : null}
+          {type === typeModals.DELETE ? (
+            <Button
+              variant="outline-danger"
+              size="sm"
+              onClick={() => this.deleteRoom()}
+            >
+              Yes
+            </Button>
+          ) : null}
+          {type === typeModals.UPDATE ? (
+            <Button
+              variant="outline-primary"
+              size="sm"
+              onClick={() => this.updateRoom()}
+            >
+              Update
+            </Button>
+          ) : null}
           <Button
             variant="outline-danger"
             size="sm"
