@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
-import { isPermissionActionRoomMgt, isRoleSa } from "./permissionHandle";
-import { typePermissions } from "../constants/constant";
+import { isPermissionActionMgt, isRoleSa } from "./permissionHandle";
+import { moduleNames, typePermissions } from "../constants/constant";
 
 export const roomOptions = [
   {
@@ -43,11 +43,13 @@ export const handleDataTable = (
   diviceFc
 ) => {
   const roleSa = isRoleSa();
-  const permissionActionUpdate = isPermissionActionRoomMgt(
-    typePermissions.EDIT
+  const permissionActionUpdate = isPermissionActionMgt(
+    typePermissions.EDIT,
+    moduleNames.ROOM_MANAGEMENT
   );
-  const permissionActionDelete = isPermissionActionRoomMgt(
-    typePermissions.DELETE
+  const permissionActionDelete = isPermissionActionMgt(
+    typePermissions.DELETE,
+    moduleNames.ROOM_MANAGEMENT
   );
   const data = [];
   for (const [index, value] of listRooms.entries()) {

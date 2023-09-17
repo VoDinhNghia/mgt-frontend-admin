@@ -1,7 +1,7 @@
 import { Badge, Button } from "react-bootstrap";
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import { getCurrentUser, getPermission } from "../services/authService";
-import { moduleNames, userRoles } from "../constants/constant";
+import { userRoles } from "../constants/constant";
 
 export const isRoleSa = () => {
   const currentUser = getCurrentUser();
@@ -9,9 +9,9 @@ export const isRoleSa = () => {
   return checkRole;
 }
 
-export const isPermissionActionUserMgt = (action) => {
+export const isPermissionActionMgt = (action, moduleName) => {
   const roleSa = isRoleSa();
-  const permissionOfModule = isPermissionModule(moduleNames.USER_MANAGEMENT);
+  const permissionOfModule = isPermissionModule(moduleName);
   const { permission = [] } = permissionOfModule;
   const isPermission = permission?.includes(action);
   return roleSa || isPermission;
@@ -21,14 +21,6 @@ export const isPermissionModule = (moduleName) => {
   const permissionList = getPermission();
   const existedModule = permissionList?.find((per) => per?.moduleName === moduleName);
   return existedModule;
-}
-
-export const isPermissionActionRoomMgt = (action) => {
-  const roleSa = isRoleSa();
-  const permissionOfModule = isPermissionModule(moduleNames.ROOM_MANAGEMENT);
-  const { permission = [] } = permissionOfModule;
-  const isPermission = permission?.includes(action);
-  return roleSa || isPermission;
 }
 
 export const headerListPermission = [

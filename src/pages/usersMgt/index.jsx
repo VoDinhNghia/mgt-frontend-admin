@@ -13,7 +13,7 @@ import { userActions } from "../../store/actions";
 import TableCommonPage from "../commons/table";
 import { handleDataTable, headerTable } from "../../utils/userHandle";
 import {
-  isPermissionActionUserMgt,
+  isPermissionActionMgt,
   isPermissionModule,
   isRoleSa,
 } from "../../utils/permissionHandle";
@@ -156,7 +156,7 @@ class UsersMgtPage extends Component {
     } = this.state;
     const roleSa = isRoleSa();
     const permissionModule = isPermissionModule(moduleNames.USER_MANAGEMENT);
-    const isPermissionAdd = isPermissionActionUserMgt(typePermissions.ADD);
+    const isPermissionAdd = isPermissionActionMgt(typePermissions.ADD, moduleNames.USER_MANAGEMENT);
     const totalPage = Math.round(Number(totalUser / limit) + 0.45);
 
     return (

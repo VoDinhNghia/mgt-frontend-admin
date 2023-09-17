@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
-import { typePermissions } from "../constants/constant";
-import { isPermissionActionUserMgt } from "./permissionHandle";
+import { moduleNames, typePermissions } from "../constants/constant";
+import { isPermissionActionMgt } from "./permissionHandle";
 
 export const optionGender = [
   {
@@ -74,13 +74,24 @@ export const handleDataTable = (listUsers = [], updateFc, deleteFc) => {
     row.push(value?.profile?.code);
     row.push(value?.status?.toLowerCase());
     row.push(value?.role?.toLowerCase());
-    row.push(<Button variant="outline-primary" size="sm">View</Button>);
+    row.push(
+      <Button variant="outline-primary" size="sm">
+        View
+      </Button>
+    );
     row.push(
       <>
         <Button
           variant="outline-primary"
           size="sm"
-          disabled={isPermissionActionUserMgt(typePermissions.EDIT) ? false : true}
+          disabled={
+            isPermissionActionMgt(
+              typePermissions.EDIT,
+              moduleNames.USER_MANAGEMENT
+            )
+              ? false
+              : true
+          }
           onClick={() => updateFc(value)}
         >
           <BsPencilSquare />
@@ -88,7 +99,14 @@ export const handleDataTable = (listUsers = [], updateFc, deleteFc) => {
         <Button
           variant="outline-danger"
           size="sm"
-          disabled={isPermissionActionUserMgt(typePermissions.DELETE) ? false : true}
+          disabled={
+            isPermissionActionMgt(
+              typePermissions.DELETE,
+              moduleNames.USER_MANAGEMENT
+            )
+              ? false
+              : true
+          }
           onClick={() => deleteFc(value)}
         >
           <BsTrash />
