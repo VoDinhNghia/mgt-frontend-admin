@@ -2,16 +2,17 @@ import React, { Component } from "react";
 import { Nav, Sidebar, Sidenav } from "rsuite";
 import NavToggleMenuPage from "./navToggle";
 import { headerStyle } from "../../../constants/modifyCss";
-import { moduleNames, routes, userRoles } from "../../../constants/constant";
+import { moduleNames, routes } from "../../../constants/constant";
 import UserGroupIcon from "@rsuite/icons/legacy/Group";
 import "./index.css";
 import { connect } from "react-redux";
 import { userActions } from "../../../store/actions";
 import RoomIcon from "@rsuite/icons/legacy/Home";
 import FacultyIcon from "@rsuite/icons/legacy/List";
-import { getCurrentUser, getPermission, logOut } from "../../../services/authService";
+import { logOut } from "../../../services/authService";
 import LogOutIcon from "@rsuite/icons/legacy/SignOut";
 import PermissonIcon from "@rsuite/icons/legacy/Gear";
+import { isPermissionModule, isRoleSa } from "../../../utils/permissionHandle";
 
 class MenuPage extends Component {
   constructor(props) {
@@ -50,8 +51,12 @@ class MenuPage extends Component {
     const { profile = {} } = this.props;
     const { expand } = this.state;
     const userName = `${profile?.profile?.lastName} ${profile?.profile?.firstName}`;
-    const permissons = getPermission();
-    const currentUser = getCurrentUser();
+    const roleSa = isRoleSa();
+    const isAccessFaculty = isPermissionModule(
+      moduleNames.FACULTIES_MANAGEMENT
+    );
+    const isAccessRoom = isPermissionModule(moduleNames.ROOM_MANAGEMENT);
+    const isAccessUser = isPermissionModule(moduleNames.USER_MANAGEMENT);
 
     return (
       <Sidebar
@@ -80,10 +85,7 @@ class MenuPage extends Component {
         <Sidenav expanded={expand} appearance="subtle">
           <Sidenav.Body>
             <Nav>
-              {currentUser?.role === userRoles.SUPPER_ADMIN ||
-              permissons.find(
-                (per) => per.moduleName === moduleNames.USER_MANAGEMENT
-              ) ? (
+              {isAccessUser ? (
                 <Nav.Item
                   eventKey="1"
                   href={routes.userMgt}
@@ -93,10 +95,7 @@ class MenuPage extends Component {
                   {moduleNames.USER_MANAGEMENT}
                 </Nav.Item>
               ) : null}
-              {currentUser?.role === userRoles.SUPPER_ADMIN ||
-              permissons.find(
-                (per) => per.moduleName === moduleNames.ROOM_MANAGEMENT
-              ) ? (
+              {isAccessRoom ? (
                 <Nav.Item
                   eventKey="2"
                   icon={<RoomIcon />}
@@ -106,10 +105,7 @@ class MenuPage extends Component {
                   {moduleNames.ROOM_MANAGEMENT}
                 </Nav.Item>
               ) : null}
-              {currentUser?.role === userRoles.SUPPER_ADMIN ||
-              permissons.find(
-                (per) => per.moduleName === moduleNames.FACULTIES_MANAGEMENT
-              ) ? (
+              {isAccessFaculty ? (
                 <Nav.Item
                   eventKey="3"
                   icon={<FacultyIcon />}
@@ -118,15 +114,16 @@ class MenuPage extends Component {
                   {moduleNames.FACULTIES_MANAGEMENT}
                 </Nav.Item>
               ) : null}
-              {currentUser?.role === userRoles.SUPPER_ADMIN ? 
-              <Nav.Item
-                eventKey="4"
-                icon={<PermissonIcon />}
-                className="ItemMenuPage"
-                href={routes.permissionMgt}
-              >
-                {moduleNames.PERMISSION_MANAGEMENT}
-              </Nav.Item>: null}
+              {roleSa ? (
+                <Nav.Item
+                  eventKey="4"
+                  icon={<PermissonIcon />}
+                  className="ItemMenuPage"
+                  href={routes.permissionMgt}
+                >
+                  {moduleNames.PERMISSION_MANAGEMENT}
+                </Nav.Item>
+              ) : null}
               <Nav.Item
                 eventKey="5"
                 icon={<LogOutIcon />}

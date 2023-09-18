@@ -15,7 +15,6 @@ import { handleDataTable, headerTable } from "../../utils/userHandle";
 import {
   isPermissionActionMgt,
   isPermissionModule,
-  isRoleSa,
 } from "../../utils/permissionHandle";
 import ModalUserPage from "./modal";
 import { Button, Card } from "react-bootstrap";
@@ -154,14 +153,13 @@ class UsersMgtPage extends Component {
       isShowModalFilter,
       isShowModalImport,
     } = this.state;
-    const roleSa = isRoleSa();
-    const permissionModule = isPermissionModule(moduleNames.USER_MANAGEMENT);
+    const isAccessModule = isPermissionModule(moduleNames.USER_MANAGEMENT);
     const isPermissionAdd = isPermissionActionMgt(typePermissions.ADD, moduleNames.USER_MANAGEMENT);
     const totalPage = Math.round(Number(totalUser / limit) + 0.45);
 
     return (
       <div>
-        {roleSa || permissionModule ? (
+        {isAccessModule ? (
           <div className="show-fake-browser sidebar-page mt-1">
             <Container>
               <MenuPage />

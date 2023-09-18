@@ -11,16 +11,23 @@ export const isRoleSa = () => {
 
 export const isPermissionActionMgt = (action, moduleName) => {
   const roleSa = isRoleSa();
-  const permissionOfModule = isPermissionModule(moduleName);
+  const permissionOfModule = findModuleName(moduleName);
   const { permission = [] } = permissionOfModule;
   const isPermission = permission?.includes(action);
   return roleSa || isPermission;
 };
 
-export const isPermissionModule = (moduleName) => {
+export const findModuleName = (moduleName) => {
   const permissionList = getPermission();
   const existedModule = permissionList?.find((per) => per?.moduleName === moduleName);
   return existedModule;
+}
+
+export const isPermissionModule = (moduleName) => {
+  const roleSa = isRoleSa();
+  const result = findModuleName(moduleName);
+  const isPermission = roleSa || result ? true : false;
+  return isPermission;
 }
 
 export const headerListPermission = [
