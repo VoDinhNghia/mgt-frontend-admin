@@ -11,7 +11,6 @@ import {
   handleDataPermission,
   headerListPermission,
   isPermissionModule,
-  isRoleSa,
 } from "../../utils/permissionHandle";
 import ModalPermissionPage from "./modal";
 
@@ -58,12 +57,11 @@ class PermissionPageMgt extends Component {
   render() {
     const { adminList = [] } = this.props;
     const { isShowModalAdd, isShowModalDelete, user } = this.state;
-    const roleSa = isRoleSa();
-    const permissionModule = isPermissionModule(moduleNames.PERMISSION_MANAGEMENT);
+    const isAccessModule = isPermissionModule(moduleNames.PERMISSION_MANAGEMENT);
 
     return (
       <div>
-        {roleSa || permissionModule ? (
+        {isAccessModule ? (
           <div className="show-fake-browser sidebar-page mt-1">
             <Container>
               <MenuPage />

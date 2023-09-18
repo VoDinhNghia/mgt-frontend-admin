@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ForbidenPage from "../commons/forbiden";
-import { isRoleSa, isPermissionModule } from "../../utils/permissionHandle";
+import { isPermissionModule } from "../../utils/permissionHandle";
 import { moduleNames, typeModals } from "../../constants/constant";
 import { Container } from "rsuite";
 import MenuPage from "../commons/menu";
@@ -127,13 +127,12 @@ class RoomMgtPage extends Component {
       isShowModalDivive,
       room,
     } = this.state;
-    const roleSa = isRoleSa();
-    const permissionModule = isPermissionModule(moduleNames.ROOM_MANAGEMENT);
+    const isAccessModule = isPermissionModule(moduleNames.ROOM_MANAGEMENT);
     const totalPage = Math.round(Number(totalRoom / limit) + 0.45);
 
     return (
       <div>
-        {roleSa || permissionModule ? (
+        {isAccessModule ? (
           <div className="show-fake-browser sidebar-page mt-1">
             <Container>
               <MenuPage />
